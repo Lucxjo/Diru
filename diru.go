@@ -1,49 +1,54 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
-	"os/signal"
-	"syscall"
+	"strings"
 
-	"github.com/bwmarrin/discordgo"
+	"github.com/andersfylling/disgord"
+	"github.com/andersfylling/disgord/std"
 	"github.com/joho/godotenv"
+	"github.com/lucxjo/diru/deepl"
+  	deeplgo "github.com/bounoable/deepl"
 )
 
 func main() {
+
 	err := godotenv.Load()
 	if err != nil {
 		panic(err)
 	}
 
-	discord, err := discordgo.New("Bot " + os.Getenv("DISCORD_TOKEN"))
+	client := disgord.New(disgord.Config{
+		BotToken: os.Getenv("DISCORD_TOKEN"),
+		ProjectName: "Diru",
+		Intents: disgord.IntentGuildMessages | disgord.IntentDirectMessages,
+	})
 
 	if err != nil {
 		panic(err)
 	}
 
-	discord.AddHandler(messageCreate)
+	dClient := deeplgo.New(os.Getenv("DEEPL_TOKEN"))
 
-	err = discord.Open()
-	if err != nil {
-		panic(err)
-	}
+	deeplCont, _ := std.NewMsgFilter(context.Background(), client)
+	gotransCont, _ := std.NewMsgFilter(context.Background(), client)
 
+	deeplCont.SetPrefix("deepl")
+	gotransCont.SetPrefix("gotrans")
+
+	client.Gateway().WithMiddleware(deeplCont.HasPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
+		m := strings.TrimLeft(h.Message.Content, "deepl")
+		translated := deepl.AutoTranslate(m, dClient)
+		h.Message.Author.SendMsgString(context.Background(), s, "Original: " + m + "\nTranslation: " + translated)
+	})
+
+	client.Gateway().WithMiddleware(gotransCont.HasPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
+		h.Message.Author.SendMsgString(context.Background(), s, "Google Translate is currently not implemented")
+	})
 
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
-	sc := make(chan os.Signal, 1)
-	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	<-sc
 
-	defer discord.Close()
-}
-
-func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
-	if m.Author.ID == s.State.User.ID {
-		return
-	}
-
-	if m.Content == "deepl" {
-		s.ChannelMessageSend(m.ChannelID, "Deepl is a deep learning platform for natural language processing. type `deepl help` for more information.")
-	}
+	defer client.Gateway().StayConnectedUntilInterrupted()
 }
