@@ -44,7 +44,11 @@ func main() {
 			return
 		} else if h.Message.Type == disgord.MessageTypeReply {
 			reply := h.Message.ReferencedMessage.Content
-			h.Message.Reply(context.Background(), s, deepl.AutoTranslate(reply, dClient))
+			if strings.TrimLeft(h.Message.Content, "deepl") != "" {
+				h.Message.Reply(context.Background(), s, deepl.TranslateTo(strings.TrimLeft(h.Message.Content, "deepl"), reply, dClient))
+			} else {
+				h.Message.Reply(context.Background(), s, deepl.AutoTranslate(reply, dClient))
+			}
 		} else {
 			m := strings.TrimLeft(h.Message.Content, "deepl")
 			translated := deepl.AutoTranslate(m, dClient)
