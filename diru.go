@@ -8,9 +8,9 @@ import (
 
 	"github.com/andersfylling/disgord"
 	"github.com/andersfylling/disgord/std"
+	deeplgo "github.com/bounoable/deepl"
 	"github.com/joho/godotenv"
 	"github.com/lucxjo/diru/deepl"
-  	deeplgo "github.com/bounoable/deepl"
 )
 
 func main() {
@@ -21,9 +21,9 @@ func main() {
 	}
 
 	client := disgord.New(disgord.Config{
-		BotToken: os.Getenv("DISCORD_TOKEN"),
+		BotToken:    os.Getenv("DISCORD_TOKEN"),
 		ProjectName: "Diru",
-		Intents: disgord.IntentGuildMessages | disgord.IntentDirectMessages,
+		Intents:     disgord.IntentGuildMessages | disgord.IntentDirectMessages,
 	})
 
 	if err != nil {
@@ -39,9 +39,17 @@ func main() {
 	gotransCont.SetPrefix("gotrans")
 
 	client.Gateway().WithMiddleware(deeplCont.HasPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
-		m := strings.TrimLeft(h.Message.Content, "deepl")
-		translated := deepl.AutoTranslate(m, dClient)
-		h.Message.Author.SendMsgString(context.Background(), s, "Original: " + m + "\nTranslation: " + translated)
+
+		if h.Message.Author.Bot {
+			return
+		} else if h.Message.Type == disgord.MessageTypeReply {
+			reply := h.Message.ReferencedMessage.Content
+			h.Message.Reply(context.Background(), s, deepl.AutoTranslate(reply, dClient))
+		} else {
+			m := strings.TrimLeft(h.Message.Content, "deepl")
+			translated := deepl.AutoTranslate(m, dClient)
+			h.Message.Reply(context.Background(), s, translated)
+		}
 	})
 
 	client.Gateway().WithMiddleware(gotransCont.HasPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
