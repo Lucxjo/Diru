@@ -1,7 +1,6 @@
 package deepl
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/bounoable/deepl"
@@ -10,7 +9,6 @@ import (
 // GetLang returns the deepl language for a given language code.
 func GetLang(langCode string) deepl.Language {
 	trimmed := strings.TrimSpace(strings.ToUpper(langCode))
-	fmt.Println(trimmed)
 	switch trimmed {
 		case "BG":
 			return deepl.Bulgarian

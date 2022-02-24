@@ -9,6 +9,12 @@ var Commands = []*disgord.CreateApplicationCommand{
 		Description: "Translates a phrase from a language into English (British) using Deepl",
 		Options: []*disgord.ApplicationCommandOption{
 			{
+				Name: 	  "text",
+				Required: true,
+				Type:    disgord.OptionTypeString,
+				Description: "The text to translate.",
+			},
+			{
 				Name: 	  "from_lang",
 				Required: false,
 				Type:    disgord.OptionTypeString,
@@ -107,7 +113,7 @@ var Commands = []*disgord.CreateApplicationCommand{
 						Value: "SV",
 					},
 					{
-						Name: "ZH",
+						Name: "Chinese",
 						Value: "ZH",
 					},
 				},

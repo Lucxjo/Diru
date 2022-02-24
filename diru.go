@@ -39,7 +39,7 @@ func main() {
 	gotransCont.SetPrefix("gotrans")
 
 	client.Gateway().WithMiddleware(deeplCont.HasBotMentionPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
-		h.Message.Reply(context.Background(), s, "For help, see https://github.com/lucxjo/diru")
+		h.Message.Reply(context.Background(), s, "For help, see https://github.com/lucxjo/diru/wiki")
 	})
 
 	client.Gateway().WithMiddleware(deeplCont.HasPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
