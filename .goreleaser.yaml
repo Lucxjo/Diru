@@ -44,7 +44,7 @@ dockers:
       - "ghcr.io/lucxjo/diru:{{ .Tag }}-{{ .Env.GO_VERSION }}"
       - "ghcr.io/lucxjo/diru:v{{ .Major }}"
       - "ghcr.io/lucxjo/diru:latest"
-    skip_push: true
+    skip_push: false
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
