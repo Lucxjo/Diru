@@ -9,6 +9,7 @@ import (
 	"github.com/lucxjo/diru/deepl"
 )
 
+// Dpl uses the Translate function to translate text to a requested language.
 func Dpl(msg *disgord.Message, s disgord.Session, c *deeplgo.Client) {
 	lang := strings.Split(msg.Content, " ")[2]
 

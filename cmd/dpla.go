@@ -9,6 +9,7 @@ import (
 	"github.com/lucxjo/diru/deepl"
 )
 
+// Dpla uses the AutoTranslate function to translate text to English (British).
 func Dpla(msg *disgord.Message, s disgord.Session, c *deeplgo.Client) {
 	if msg.Type == disgord.MessageTypeReply {
 		text := msg.ReferencedMessage.Content

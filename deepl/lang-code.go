@@ -71,6 +71,7 @@ func GetLang(langCode string) deepl.Language {
 	}
 }
 
+// CheckCode checks if a language code is valid.
 func CheckCode(langCode string) bool {
 	trimmed := strings.TrimSpace(strings.ToUpper(langCode))
 
