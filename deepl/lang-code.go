@@ -70,3 +70,69 @@ func GetLang(langCode string) deepl.Language {
 			return deepl.EnglishBritish
 	}
 }
+
+func CheckCode(langCode string) bool {
+	trimmed := strings.TrimSpace(strings.ToUpper(langCode))
+
+	switch trimmed {
+		case "BG":
+			return true
+		case "CS":
+			return true
+		case "DA":
+			return true
+		case "DE":
+			return true
+		case "EL":
+			return true
+		case "EN":
+			return true
+		case "EN-GB":
+			return true
+		case "EN-US":
+			return true
+		case "ES":
+			return true
+		case "ET":
+			return true
+		case "FI":
+			return true
+		case "FR":
+			return true
+		case "HU":
+			return true
+		case "IT":
+			return true
+		case "JA":
+			return true
+		case "LT":
+			return true
+		case "LV":
+			return true
+		case "NL":
+			return true
+		case "PL":
+			return true
+		case "PT":
+			return true
+		case "PT-BR":
+			return true
+		case "PT-PT":
+			return true
+		case "RO":
+			return true
+		case "RU":
+			return true
+		case "SK":
+			return true
+		case "SL":
+			return true
+		case "SV":
+			return true
+		case "ZH":
+			return true
+		default:
+			return false
+	}
+
+}
