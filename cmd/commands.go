@@ -22,6 +22,8 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client) {
 	} else if prefix == "issue" {
 		msg.Reply(context.Background(), s, "Please report any issues on the GitHub issue tracker: https://github.com/Lucxjo/Diru/issues")
 	} else if prefix == "help" {
-		msg.Reply(context.Background(), s, )
+		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language.\n\n`@Diru dpla <phrase>`\nTranslates a phrase to English (British).\n\n`@Diru info`\nDisplays technical information about the bot.\n\n`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
+	} else {
+		msg.Reply(context.Background(), s, "Command not found.\nPlease use `@Diru help` to see a list of available commands.")
 	}
 }
