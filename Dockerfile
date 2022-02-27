@@ -1,10 +1,12 @@
-FROM golang:1.17-alpine as builder
+FROM golang:1.17-alpine as base
 RUN apk --update --no-cache add bash build-base ca-certificates git
-WORKDIR /bot
+WORKDIR /app
 COPY . .
-RUN go build --ldflags="-s -w" -o ./diru
+ENV GOOS linux
+RUN go build -o ./diru
 
-FROM golang:1.17-alpine as runner
-WORKDIR /bot
-COPY --from=builder /bot/diru ./diru
-CMD [ "./diru" ]
+FROM scratch
+WORKDIR /app
+COPY --from=base /app/diru ./diru
+RUN chmod +x ./diru
+ENTRYPOINT [ "./diru" ]

@@ -18,7 +18,7 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client) {
 	} else if prefix == "dpla" {
 		Dpla(msg, s, c)
 	} else if prefix == "info" {
-		msg.Reply(context.Background(), s, "Diru is a Discord bot that can translate text.\n\n**Technical information:**\n`" + "OS: " + runtime.GOOS + "`\n`" + "Arch: " + runtime.GOARCH + "`\n`" + "Go Version: " + runtime.Version()+"`\n`" + "Version: 1.0.0" + "`\n" + "Source: https://github.com/Lucxjo/Diru/")
+		msg.Reply(context.Background(), s, "Diru is a Discord bot that can translate text.\n\n**Technical information:**\n```" + "OS: " + runtime.GOOS + "\n" + "Arch: " + runtime.GOARCH + "\n" + "Go Version: " + runtime.Version()+"\n" + "Version: 1.0.1" + "\n" + "Source: https://github.com/Lucxjo/Diru/```")
 	} else if prefix == "issue" {
 		msg.Reply(context.Background(), s, "Please report any issues on the GitHub issue tracker: https://github.com/Lucxjo/Diru/issues")
 	} else if prefix == "help" {
