@@ -18,12 +18,23 @@ You can donate to the project through:
  - [Liberapay](https://liberapay.com/ludoviko)  
 
 You can also donate through Crypto:
+ - BTC:
 ```
-BTC: 3Jbcj3XCMmB1jVwNKXxKJGngBxLCh1ZR12
+bc1qt6x9ese0xlykhsz4m06kfyheya8kad9wuze3e6
 ```
+ - XMR:
 ```
-XMR: 4357jhrFJS2E61oJ53H3h3hyAUU93NL4v96q7ZKFWJRLC4YMABn2VF47NfRfVeuhfnbfivJidSbNiL6MM4hNfXTd78KM1MR
+4357jhrFJS2E61oJ53H3h3hyAUU93NL4v96q7ZKFWJRLC4YMABn2VF47NfRfVeuhfnbfivJidSbNiL6MM4hNfXTd78KM1MR
 ```
+ - ETH (also supports ERC20):
 ```
-ETH: 0x0746B56bC05caD3f3b346478d86AC2604d1f8d66
+0x350280ba7D9d59cE4F8618DA187A5EE739E55bE2
+```
+ - XTZ
+```
+tz1TGmYFvYJrCFojiZVNfnLhF9mS1vzphUYN
+```
+  - LTC
+```
+ltc1qt0yanfag307cpvuzfpujpvkrtlqh8gcuqahv5h
 ```
