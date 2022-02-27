@@ -30,6 +30,10 @@ bc1qt6x9ese0xlykhsz4m06kfyheya8kad9wuze3e6
 ```
 0x350280ba7D9d59cE4F8618DA187A5EE739E55bE2
 ```
+ - Polygon (MATIC and other ERC20)
+```
+0x350280ba7D9d59cE4F8618DA187A5EE739E55bE2
+```
  - XTZ
 ```
 tz1TGmYFvYJrCFojiZVNfnLhF9mS1vzphUYN
