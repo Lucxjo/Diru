@@ -1,6 +1,8 @@
 # Diru
-A Discord translate bot written in Go
+[![Discord Bots](https://top.gg/api/widget/servers/944915663632355388.svg)](https://top.gg/bot/944915663632355388) [![Discord](https://img.shields.io/discord/847533270630531132?style=flat-square)](https://discord.gg/UZRyJrEPTU)  
+A Discord translation bot written in Go
 
+[![Discord Bots](https://top.gg/api/widget/944915663632355388.svg)](https://top.gg/bot/944915663632355388)
 
 ## Invite
 You can invite the bot that I host with this link: https://discordapp.com/oauth2/authorize?client_id=723897238972389723&scope=bot&permissions=8
