@@ -8,19 +8,14 @@ import (
 	"time"
 )
 
-type TopggBotData struct {
-	ServerCount uint `json:"server_count"`
-	ShardCount uint `json:"shard_count"`
-}
-
-func SendTopggData(token string, botId string, shards uint) {
+func SendTopggData(token string, botId string, shards uint, dctoken string) {
 	httpClient := &http.Client{
 		Timeout: 10 * time.Second,
 	}
 
-	reqBody, _ := json.Marshal(TopggBotData{
-		ServerCount: uint(GetConnectedServerCount(token)),
-		ShardCount: shards,
+	reqBody, _ := json.Marshal(map[string]uint{
+		"server_count": uint(GetConnectedServerCount(dctoken)),
+		"shard_count": shards,
 	})
 
 	req, _ := http.NewRequest("POST", "https://top.gg/api/bots/" + botId + "/stats", bytes.NewBuffer(reqBody))

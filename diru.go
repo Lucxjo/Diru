@@ -30,7 +30,7 @@ func main() {
 		bot, _ := client.Gateway().GetBot()
 
 		if config.Topgg.Token != "" && config.Topgg.Id != "" {
-			utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards)
+			utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
 		}
 	})
 

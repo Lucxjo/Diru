@@ -27,11 +27,11 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config c
 		msg.Reply(context.Background(), s, "Vote for Diru on top.gg: https://top.gg/bot/"+ config.Topgg.Id +"/vote")
 	} else if prefix == "help" {
 		bot, _ := s.Gateway().GetBot()
-		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards)
+		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
 		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language.\n\n`@Diru dpla <phrase>`\nTranslates a phrase to English (British).\n\n`@Diru info`\nDisplays technical information about the bot.\n\n`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
 	} else {
 		bot, _ := s.Gateway().GetBot()
-		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards)
+		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
 		msg.Reply(context.Background(), s, "Command not found.\nPlease use `@Diru help` to see a list of available commands.")
 	}
 }
