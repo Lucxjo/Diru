@@ -8,7 +8,7 @@ A Discord translation bot written in Go
 You can invite the bot that I host with this link: https://discordapp.com/oauth2/authorize?client_id=723897238972389723&scope=bot&permissions=8
 
 ## Privacy
-The bot, when added through the invite link above, does not collect any personal information. I host the exact same version as in the repo on a server in Finland. When making a request to the bot, it passes the text to the DeepL API without any identifying information. Sometimes, an error may occur, this error may get printed to the server log, but again, does not include any personal information.
+The bot, when added through the invite link above, does not collect any personal information. I host the exact same version as in the repo on a server in Finland. When making a request to the bot, it passes the text to the DeepL API without any identifying information. Sometimes, an error may occur, this error may get printed to the server log, but again, does not include any personal information. With certain interactions, the bot sends the server and shard count to Top.gg, but this does not include any information as to what user has triggered this or which servers the bot is in.
 
 ## Support the project
 Diru is entirely free to use and is open source, unfortunately the same can't be said about the APIs or hosting. There are different ways to support the development and running of Diru. The first being to contribute to the codebase, whether that be squashing bugs or adding new features. The second is helping to find bugs and reporting them on the [issue tracker](https://github.com/lucxjo/diru/issues). The third is to donate to the project.

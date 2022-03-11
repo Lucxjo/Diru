@@ -5,8 +5,9 @@ COPY . .
 ENV GOOS linux
 RUN go build -o ./diru
 
-FROM scratch
+FROM alpine
 WORKDIR /app
 COPY --from=base /app/diru ./diru
-RUN chmod +x ./diru
 ENTRYPOINT [ "./diru" ]
+
+LABEL org.opencontainers.image.source https://github.com/Lucxjo/Diru

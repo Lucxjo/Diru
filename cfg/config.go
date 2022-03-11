@@ -8,10 +8,15 @@ import (
 	"github.com/cristalhq/aconfig"
 )
 
+type Topgg struct {
+	Token string `default:""`
+	Id string `default:""`
+}
 
 type DiruConfig struct {
 	DiscordToken string `default:""`
 	DeeplToken   string `default:""`
+	Topgg Topgg
 }
 
 func GetConfig() DiruConfig {
@@ -37,6 +42,7 @@ func GetConfig() DiruConfig {
 	config := DiruConfig{
 		DiscordToken: cfg.DiscordToken,
 		DeeplToken:   cfg.DeeplToken,
+		Topgg: cfg.Topgg,
 	}
 
 	return config
