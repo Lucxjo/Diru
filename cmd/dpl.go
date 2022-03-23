@@ -11,7 +11,14 @@ import (
 
 // Dpl uses the Translate function to translate text to a requested language.
 func Dpl(msg *disgord.Message, s disgord.Session, c *deeplgo.Client) {
-	lang := strings.Split(msg.Content, " ")[2]
+	sArr := strings.Split(msg.Content, " ")
+
+	if len(sArr) <= 2 && msg.Type != disgord.MessageTypeReply {
+		msg.Reply(context.Background(), s, "Please specify a language code.\n Please use the format `@Diru dpl <lang> <phrase>`.\n For language codes see: https://github.com/Lucxjo/Diru/wiki/Supported-translators-and-languages#deepls-supported-languages")
+		return
+	}
+
+	lang := sArr[2]
 
 	if !deepl.CheckCode(lang) {
 		msg.Reply(context.Background(), s, "Language code is incorrect.\n Please use the format `@Diru dpl <lang> <phrase>`.\n For language codes see: https://github.com/Lucxjo/Diru/wiki/Supported-translators-and-languages#deepls-supported-languages")
