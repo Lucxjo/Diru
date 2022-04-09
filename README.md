@@ -5,7 +5,7 @@ A Discord translation bot written in Go
 [![Discord Bots](https://top.gg/api/widget/944915663632355388.svg)](https://top.gg/bot/944915663632355388)
 
 ## Invite
-You can invite the bot that I host with this link: https://discordapp.com/oauth2/authorize?client_id=723897238972389723&scope=bot&permissions=8
+You can invite the bot that I host with this link: https://discordapp.com/oauth2/authorize?client_id=944915663632355388&scope=bot&permissions=8
 
 ## Privacy
 The bot, when added through the invite link above, does not collect any personal information. I host the exact same version as in the repo on a server in Finland. When making a request to the bot, it passes the text to the DeepL API without any identifying information. Sometimes, an error may occur, this error may get printed to the server log, but again, does not include any personal information. With certain interactions, the bot sends the server and shard count to Top.gg, but this does not include any information as to what user has triggered this or which servers the bot is in.
