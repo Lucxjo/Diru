@@ -19,6 +19,8 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config c
 		Dpl(msg, s, c)
 	} else if prefix == "dpla" {
 		Dpla(msg, s, c)
+	} else if prefix == "gtr" {
+		Gtr(msg, s)
 	} else if prefix == "info" {
 		msg.Reply(context.Background(), s, "Diru is a Discord bot that can translate text.\n\n**Technical information:**\n```" + "OS: " + runtime.GOOS + "\n" + "Arch: " + runtime.GOARCH + "\n" + "Go Version: " + runtime.Version()+"\n" + "Version: 1.0.4" + "\n" + "Source: https://github.com/Lucxjo/Diru/```")
 	} else if prefix == "issue" {
