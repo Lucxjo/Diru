@@ -10,6 +10,8 @@ import (
 	"github.com/lucxjo/diru/cfg"
 	"github.com/lucxjo/diru/cmd"
 	"github.com/lucxjo/diru/utils"
+
+	"cloud.google.com/go/pubsub"
 )
 
 func main() {
@@ -21,7 +23,20 @@ func main() {
 		Intents:     disgord.IntentGuildMessages | disgord.IntentDirectMessages,
 	})
 
+	u, err := client.BotAuthorizeURL(disgord.PermissionUseSlashCommands, []string{"bot"})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(u)
+
 	dClient := deeplgo.New(config.DeeplToken)
+	gClient, err := pubsub.NewClient(context.Background(), config.GtrProjectId)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer gClient.Close()
 
 	cont, _ := std.NewMsgFilter(context.Background(), client)
 

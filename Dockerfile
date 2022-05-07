@@ -8,6 +8,7 @@ RUN go build -o ./diru
 FROM alpine
 WORKDIR /app
 COPY --from=base /app/diru ./diru
+ENV GOOGLE_APPLICATION_CREDENTIALS=./config/gcloud.json
 ENTRYPOINT [ "./diru" ]
 
 LABEL org.opencontainers.image.source https://github.com/Lucxjo/Diru
