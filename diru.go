@@ -49,7 +49,9 @@ func main() {
 		}
 	})
 
-	client.Gateway().WithMiddleware(cont.HasBotMentionPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
+	cont.SetPrefix("?diru")
+
+	client.Gateway().WithMiddleware(cont.HasPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
 		if !h.Message.Author.Bot {
 			cmd.Commands(h.Message, s, dClient, config)
 		}

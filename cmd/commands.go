@@ -32,8 +32,7 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config c
 		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
 		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language with DeepL.\n\n`@Diru dpla <phrase>`\nTranslates a phrase to English (British) with DeepL.\n\n`@Diru gtr <lang> <phrase>`\nTranslates a phrase to a specified language with Google Translate\n\n`@Diru info`\nDisplays technical information about the bot.\n\n`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
 	} else {
-		bot, _ := s.Gateway().GetBot()
-		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
-		msg.Reply(context.Background(), s, "Command not found.\nPlease use `@Diru help` to see a list of available commands.")
+		// Default to DPLA if none of the above prefixes
+		Dpla(msg, s, c)
 	}
 }
