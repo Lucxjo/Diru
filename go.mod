@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/pubsub v1.21.1
 	cloud.google.com/go/translate v1.2.0
 	github.com/andersfylling/disgord v0.35.1
-	github.com/bounoable/deepl v0.5.0
+	github.com/bounoable/deepl v0.5.1
 	github.com/cristalhq/aconfig v0.16.8
 	golang.org/x/text v0.3.7
 )

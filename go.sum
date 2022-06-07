@@ -70,8 +70,8 @@ github.com/andersfylling/disgord v0.35.1/go.mod h1:gTzujw2mWxJWxAPo3LwxG5+a4/n4i
 github.com/andersfylling/snowflake/v5 v5.0.1 h1:unXbYSij6tRCGJzoLz9zl3nJsqd9hu7bbYSgB8K8/i0=
 github.com/andersfylling/snowflake/v5 v5.0.1/go.mod h1:AdhrB+kewjnQInv8cR7ABe2SGoVXh79njnipUnz1HFc=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
-github.com/bounoable/deepl v0.5.0 h1:R82NxXQVOlUsQuCsu3tF9oof+kbQyHxJfArlqwC12UY=
-github.com/bounoable/deepl v0.5.0/go.mod h1:j3PK/z+YholbpRA8MBaBKIt8Q1oB6s31BADC7hvCz2M=
+github.com/bounoable/deepl v0.5.1 h1:fkOR+niC/uxCXSo5JQ/QXz1ajxYMDrKrijVPLa5QAxc=
+github.com/bounoable/deepl v0.5.1/go.mod h1:lHrdSBkzDFga9y/lN02vCsDhqx5B5eH1HqllaszGPlA=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/cespare/xxhash v1.1.0/go.mod h1:XrSqR1VqqWfGrhpAt58auRo0WTKS1nRRg3ghfAqPWnc=
 github.com/cespare/xxhash/v2 v2.1.1/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
