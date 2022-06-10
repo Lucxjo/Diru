@@ -22,7 +22,9 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config c
 	} else if prefix == "gtr" {
 		Gtr(msg, s)
 	} else if prefix == "info" {
-		msg.Reply(context.Background(), s, "Diru is a Discord bot that can translate text.\n\n**Technical information:**\n```" + "OS: " + runtime.GOOS + "\n" + "Arch: " + runtime.GOARCH + "\n" + "Go Version: " + runtime.Version()+"\n" + "Version: 1.1.0" + "\n" + "Source: https://github.com/Lucxjo/Diru/```")
+		msg.Reply(context.Background(), s, "Diru is a Discord bot that can translate text.\n\n**Technical information:**\n```" + 
+		"OS: " + runtime.GOOS + "\n" + "Arch: " + runtime.GOARCH + "\n" + "Go Version: " + runtime.Version()+"\n" + 
+		"Version: 1.1.0" + "\n" + "Source: https://github.com/Lucxjo/Diru/```")
 	} else if prefix == "issue" {
 		msg.Reply(context.Background(), s, "Please report any issues on the GitHub issue tracker: https://github.com/Lucxjo/Diru/issues")
 	} else if prefix == "vote" && config.Topgg.Token != "" && config.Topgg.Id != "" {
@@ -30,10 +32,15 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config c
 	} else if prefix == "help" {
 		bot, _ := s.Gateway().GetBot()
 		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
-		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language with DeepL.\n\n`@Diru dpla <phrase>`\nTranslates a phrase to English (British) with DeepL.\n\n`@Diru gtr <lang> <phrase>`\nTranslates a phrase to a specified language with Google Translate\n\n`@Diru info`\nDisplays technical information about the bot.\n\n`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
+		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n" + 
+		"`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language with DeepL.\n\n" + 
+		"`@Diru dpla <phrase>`\nTranslates a phrase to English (British) with DeepL.\n\n" + 
+		"`@Diru <phrase>` \ndoes the same thing as `dpla`\n\n" + 
+		"`@Diru gtr <lang> <phrase>`\nTranslates a phrase to a specified language with Google Translate\n\n" + 
+		"`@Diru info`\nDisplays technical information about the bot.\n\n" + 
+		"`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
 	} else {
-		bot, _ := s.Gateway().GetBot()
-		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
-		msg.Reply(context.Background(), s, "Command not found.\nPlease use `@Diru help` to see a list of available commands.")
+		// Default to DPLA if none of the above prefixes
+		Dpla(msg, s, c)
 	}
 }
