@@ -1,6 +1,6 @@
 # Diru
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Discord Bots](https://top.gg/api/widget/servers/944915663632355388.svg)](https://top.gg/bot/944915663632355388) [![Discord](https://img.shields.io/discord/847533270630531132?style=flat-square)](https://discord.gg/UZRyJrEPTU)  
 A Discord translation bot written in Go
@@ -58,6 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/TimHugall"><img src="https://avatars.githubusercontent.com/u/39146315?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TimHugall</b></sub></a><br /><a href="https://github.com/Lucxjo/Diru/commits?author=TimHugall" title="Code">💻</a></td>
+    <td align="center"><a href="https://ludoviko.ch"><img src="https://avatars.githubusercontent.com/u/4950364?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ludoviko</b></sub></a><br /><a href="https://github.com/Lucxjo/Diru/commits?author=Lucxjo" title="Code">💻</a> <a href="#infra-Lucxjo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/Lucxjo/Diru/pulls?q=is%3Apr+reviewed-by%3ALucxjo" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
