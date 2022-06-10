@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "TimHugall",
+      "name": "TimHugall",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39146315?v=4",
+      "profile": "https://github.com/TimHugall",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Diru",
+  "projectOwner": "Lucxjo",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
