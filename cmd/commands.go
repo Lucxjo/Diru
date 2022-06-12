@@ -12,7 +12,7 @@ import (
 )
 
 // Commands is a command manager. It simply calls the appropriate function based on the command.
-func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config cfg.DiruConfig) {
+func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client) {
 	prefix := strings.Split(msg.Content, " ")[1]
 
 	if prefix == "dpl" {
@@ -27,11 +27,11 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, config c
 		"Version: 1.1.0" + "\n" + "Source: https://github.com/Lucxjo/Diru/```")
 	} else if prefix == "issue" {
 		msg.Reply(context.Background(), s, "Please report any issues on the GitHub issue tracker: https://github.com/Lucxjo/Diru/issues")
-	} else if prefix == "vote" && config.Topgg.Token != "" && config.Topgg.Id != "" {
-		msg.Reply(context.Background(), s, "Vote for Diru on top.gg: https://top.gg/bot/"+ config.Topgg.Id +"/vote")
+	} else if prefix == "vote" && cfg.GetValue("topgg.token").(string) != "" && cfg.GetValue("topgg.id").(string) != "" {
+		msg.Reply(context.Background(), s, "Vote for Diru on top.gg: https://top.gg/bot/"+ cfg.GetValue("topgg.id").(string) +"/vote")
 	} else if prefix == "help" {
 		bot, _ := s.Gateway().GetBot()
-		utils.SendTopggData(config.Topgg.Token, config.Topgg.Id, bot.Shards, config.DiscordToken)
+		utils.SendTopggData(cfg.GetValue("topgg.token").(string), cfg.GetValue("topgg.id").(string), bot.Shards, cfg.GetValue("discord_token").(string))
 		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n" + 
 		"`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language with DeepL.\n\n" + 
 		"`@Diru dpla <phrase>`\nTranslates a phrase to English (British) with DeepL.\n\n" + 
