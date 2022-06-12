@@ -7,7 +7,7 @@ require (
 	cloud.google.com/go/translate v1.2.0
 	github.com/andersfylling/disgord v0.35.1
 	github.com/bounoable/deepl v0.5.1
-	github.com/cristalhq/aconfig v0.17.0
+	github.com/mattn/go-sqlite3 v1.14.13
 	github.com/spf13/viper v1.12.0
 	golang.org/x/text v0.3.7
 )
