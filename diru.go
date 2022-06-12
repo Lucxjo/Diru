@@ -16,15 +16,16 @@ import (
 
 func main() {
 	cfg.Init("", map[string]interface{}{
-		"discord_token": "",
-		"deepl_token":   "",
-		"gtr_token":     "",
+		"discord_token":  "",
+		"deepl_token":    "",
 		"gtr_project_id": "",
 		"topgg": map[string]interface{}{
 			"token": "",
 			"id":    "",
 		},
 	})
+
+	var dClient *deeplgo.Client
 
 	client := disgord.New(disgord.Config{
 		BotToken:    cfg.GetValue("discord_token").(string),
@@ -37,15 +38,22 @@ func main() {
 		panic(err)
 	}
 	fmt.Println(u)
-
-	dClient := deeplgo.New(cfg.GetValue("deepl_token").(string))
-	gClient, err := pubsub.NewClient(context.Background(), cfg.GetValue("gtr_project_id").(string))
-
-	if err != nil {
-		panic(err)
+	if cfg.GetValue("deepl_token").(string) == "" && cfg.GetValue("gtr_project_id").(string) == "" {
+		panic("No translation provider configured")
+	}
+	if cfg.GetValue("deepl_token").(string) != "" {
+		dClient = deeplgo.New(cfg.GetValue("deepl_token").(string))
 	}
 
-	defer gClient.Close()
+	if cfg.GetValue("gtr_project_id").(string) != "" {
+		gClient, err := pubsub.NewClient(context.Background(), cfg.GetValue("gtr_project_id").(string))
+
+		if err != nil {
+			panic(err)
+		}
+
+		defer gClient.Close()
+	}
 
 	cont, _ := std.NewMsgFilter(context.Background(), client)
 

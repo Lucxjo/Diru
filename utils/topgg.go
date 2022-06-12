@@ -15,7 +15,7 @@ func SendTopggData(token string, botId string, shards uint, dctoken string) {
 
 	reqBody, err := json.Marshal(map[string]uint{
 		"server_count": uint(GetConnectedServerCount(dctoken)),
-		"shard_count": shards,
+		"shard_count":  shards,
 	})
 
 	if err != nil {
@@ -23,7 +23,7 @@ func SendTopggData(token string, botId string, shards uint, dctoken string) {
 		return
 	}
 
-	req, err := http.NewRequest("POST", "https://top.gg/api/bots/" + botId + "/stats", bytes.NewBuffer(reqBody))
+	req, err := http.NewRequest("POST", "https://top.gg/api/bots/"+botId+"/stats", bytes.NewBuffer(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Add("Authorization", token)
 

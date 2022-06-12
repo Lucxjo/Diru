@@ -6,7 +6,7 @@ import (
 
 type Topgg struct {
 	Token string `default:""`
-	Id string `default:""`
+	Id    string `default:""`
 }
 
 type DiruConfig struct {
@@ -14,7 +14,7 @@ type DiruConfig struct {
 	DeeplToken   string `default:""`
 	GtrToken     string `default:""`
 	GtrProjectId string `default:""`
-	Topgg Topgg
+	Topgg        Topgg
 }
 
 func Init(name string, defaults map[string]interface{}) {
