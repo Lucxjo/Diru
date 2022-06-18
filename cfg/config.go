@@ -1,16 +1,12 @@
 package cfg
 
 import (
-	"errors"
-	"io/ioutil"
-	"os"
-
-	"github.com/cristalhq/aconfig"
+	"github.com/spf13/viper"
 )
 
 type Topgg struct {
 	Token string `default:""`
-	Id string `default:""`
+	Id    string `default:""`
 }
 
 type DiruConfig struct {
@@ -18,36 +14,32 @@ type DiruConfig struct {
 	DeeplToken   string `default:""`
 	GtrToken     string `default:""`
 	GtrProjectId string `default:""`
-	Topgg Topgg
+	Topgg        Topgg
 }
 
-func GetConfig() DiruConfig {
-
-	if _, err := os.Stat("config/Diru.json"); errors.Is(err, os.ErrNotExist) {
-		ioutil.WriteFile("config/Diru.json", []byte("{\n    \"discord_token\": \"\",\n    \"deepl_token\": \"\"\n,\n    \"gtr_token\": \"\"\n}"), 0644)
-
-		panic("config/Diru.json not found. It has been created for you, you must enter your values for discord_token, gtr_token, and gtr_project_id and deepl_token.")
+func Init(name string, defaults map[string]interface{}) {
+	for k, v := range defaults {
+		viper.SetDefault(k, v)
 	}
 
-	var cfg DiruConfig
-	loader := aconfig.LoaderFor(&cfg, aconfig.Config{
-		SkipDefaults: true,
-		SkipEnv: true,
-		SkipFlags: true,
-		Files: []string{"config/Diru.json"},
-	})
-
-	if err := loader.Load(); err != nil {
-		panic(err)
+	if name == "" {
+		viper.SetConfigName("diru")
+		viper.SetConfigName("Diru")
+	} else {
+		viper.SetConfigName(name)
 	}
 
-	config := DiruConfig{
-		DiscordToken: cfg.DiscordToken,
-		DeeplToken:   cfg.DeeplToken,
-		GtrToken:     cfg.GtrToken,
-		GtrProjectId: cfg.GtrProjectId,
-		Topgg: cfg.Topgg,
-	}
+	viper.SetConfigType("toml")
+	viper.SetConfigType("json")
+	viper.AddConfigPath("config")
+	viper.AddConfigPath(".")
+}
 
-	return config
+func GetValue(k string) interface{} {
+	viper.ReadInConfig()
+	return viper.Get(k)
+}
+
+func SetValue(k string, v interface{}) {
+	panic("not implemented")
 }

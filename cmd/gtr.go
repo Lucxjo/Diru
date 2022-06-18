@@ -13,7 +13,7 @@ func Gtr(msg *disgord.Message, s disgord.Session) {
 	sArr := strings.Split(msg.Content, " ")
 
 	if len(sArr) <= 2 && msg.Type != disgord.MessageTypeReply {
-		msg.Reply(context.Background(), s, "Please specify a language code.\n Please use the format `@Diru dpl <lang> <phrase>`.\n For language codes see: https://github.com/Lucxjo/Diru/wiki/Supported-translators-and-languages#deepls-supported-languages")
+		msg.Reply(context.Background(), s, "Please specify a language code.\n Please use the format `@Diru gtr <lang> <phrase>`.\n For language codes see: https://github.com/Lucxjo/Diru/wiki/Supported-translators-and-languages#deepls-supported-languages")
 		return
 	}
 
