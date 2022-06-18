@@ -92,7 +92,7 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 		if hasPermission {
 			funct := strings.Split(msg.Content, " ")[2]
 			filter := bson.D{{"guildid", msg.GuildID.String()}}
-			if funct == "default" {
+			if funct == "default" && guildPrefs.DeepLEnabled && guildPrefs.GtrEnabled {
 				if guildPrefs.PreferredService == "deepl" {
 					update := bson.D{{"$set", bson.D{{"preferredservice", "gtr"}}}}
 					mdb.UpdateOne(context.TODO(), filter, update)
@@ -102,13 +102,39 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 					mdb.UpdateOne(context.TODO(), filter, update)
 					msg.Reply(context.Background(), s, "Default provider set to DeepL")
 				}
+			} else if funct == "gtr" {
+				if guildPrefs.GtrEnabled {
+					update := bson.D{{"$set", bson.D{{"gtrenabled", false}}}}
+					mdb.UpdateOne(context.TODO(), filter, update)
+					msg.Reply(context.Background(), s, "Google Translate disabled")
+				} else {
+					update := bson.D{{"$set", bson.D{{"gtrenabled", true}}}}
+					mdb.UpdateOne(context.TODO(), filter, update)
+					msg.Reply(context.Background(), s, "Google Translate enabled")
+				}
+			} else if funct == "dpl" {
+				if guildPrefs.DeepLEnabled {
+					update := bson.D{{"$set", bson.D{{"deeplenabled", false}}}}
+					mdb.UpdateOne(context.TODO(), filter, update)
+					msg.Reply(context.Background(), s, "DeepL disabled")
+				} else {
+					update := bson.D{{"$set", bson.D{{"deeplenabled", true}}}}
+					mdb.UpdateOne(context.TODO(), filter, update)
+					msg.Reply(context.Background(), s, "DeepL enabled")
+				}
+			} else {
+				msg.Reply(context.Background(), s, "Function not recognised")
 			}
 		} else {
 			msg.Reply(context.Background(), s, "You do not have permission to use this command.")
 		}
 	} else {
-		if cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" {
-			Dpla(msg, s, c)
+		if cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" && guildPrefs.DeepLEnabled && guildPrefs.GtrEnabled {
+			if guildPrefs.PreferredService == "gtr" {
+				Gtra(msg, s)
+			} else {
+				Dpla(msg, s, c)
+			}
 		} else if cfg.GetValue("deepl_token").(string) != "" {
 			Dpla(msg, s, c)
 		} else {
