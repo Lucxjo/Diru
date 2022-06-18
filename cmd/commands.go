@@ -49,10 +49,24 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 	} else if prefix == "info" {
 		runtime.ReadMemStats(&mStats)
 		stats := strconv.FormatInt(int64(mStats.HeapInuse/1024/1024+mStats.HeapIdle/1024/1024), 10)
+		config := ""
+
+		m, err := client.Guild(msg.GuildID).Member(msg.Author.ID).GetPermissions()
+		hasPermission := false
+
+		if err != nil {
+			msg.Reply(context.Background(), s, "Error: "+err.Error())
+		}
+
+		if m.Contains(disgord.PermissionManageServer) || m.Contains(disgord.PermissionAdministrator) { hasPermission = true }
+
+		if hasPermission {
+			config = "\n**Guild Config**\n```\nPreferred service: " + guildPrefs.PreferredService +  "\nDeepL enabled: " + strconv.FormatBool(guildPrefs.DeepLEnabled) + "\nGoogle Translate enabled: " + strconv.FormatBool(guildPrefs.GtrEnabled) + "\n```"
+		}
 
 		msg.Reply(context.Background(), s, "Diru is a Discord bot that can translate text.\n\n**Technical information:**\n```"+
 			"OS: "+runtime.GOOS+"\n"+"Arch: "+runtime.GOARCH+"\n"+
-			"Version: 1.2.0"+"\n"+"Source: https://github.com/Lucxjo/Diru/\n"+"Usage: "+stats+" MB```")
+			"Version: 1.2.0"+"\n"+"Source: https://github.com/Lucxjo/Diru/\n"+"Memory Usage: "+stats+" MB```"+config)
 	} else if prefix == "issue" {
 		msg.Reply(context.Background(), s, "Please report any issues on the GitHub issue tracker: https://github.com/Lucxjo/Diru/issues")
 	} else if prefix == "vote" && cfg.GetValue("topgg.token").(string) != "" && cfg.GetValue("topgg.id").(string) != "" {
@@ -77,6 +91,7 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 		msg.Reply(context.Background(), s, "**Commands**\nAll commands require the bot to be mentioned\n\n"+
 			dplInfo+
 			gtrInfo+
+			"`@Diru toggle-provider <default|gtr|dpl>`\n Toggles the default provider, or whether Google Translate or DeepL is enabled\n\n"+
 			"`@Diru info`\nDisplays technical information about the bot.\n\n"+
 			"`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
 	} else if prefix == "toggle-provider" && cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" {
