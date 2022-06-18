@@ -10,6 +10,8 @@ import (
 	"github.com/lucxjo/diru/cfg"
 	"github.com/lucxjo/diru/cmd"
 	"github.com/lucxjo/diru/utils"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"cloud.google.com/go/pubsub"
 )
@@ -19,11 +21,26 @@ func main() {
 		"discord_token":  "",
 		"deepl_token":    "",
 		"gtr_project_id": "",
+		"db_uri":		 "mongodb://localhost:27017",
 		"topgg": map[string]interface{}{
 			"token": "",
 			"id":    "",
 		},
 	})
+
+	mClient, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(cfg.GetValue("db_uri").(string)))
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer func() {
+		if err := mClient.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+
+	mcol := mClient.Database("diru").Collection("guildPrefs")
 
 	var dClient *deeplgo.Client
 
@@ -68,7 +85,7 @@ func main() {
 
 	client.Gateway().WithMiddleware(cont.HasBotMentionPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
 		if !h.Message.Author.Bot {
-			cmd.Commands(h.Message, s, dClient)
+			cmd.Commands(h.Message, s, dClient, mcol, client)
 		}
 		//h.Message.Reply(context.Background(), s, "For help, see https://github.com/lucxjo/diru/wiki")
 	})

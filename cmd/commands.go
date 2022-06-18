@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"context"
+	"fmt"
 	"runtime"
 	"strconv"
 	"strings"
@@ -10,10 +11,30 @@ import (
 	"github.com/bounoable/deepl"
 	"github.com/lucxjo/diru/cfg"
 	"github.com/lucxjo/diru/utils"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // Commands is a command manager. It simply calls the appropriate function based on the command.
-func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client) {
+func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mongo.Collection, client *disgord.Client) {
+	var guildPrefs cfg.GuildPrefs
+
+	defaultSettings := cfg.GuildPrefs{
+		GuildID:   msg.GuildID.String(),
+		PreferredService: "deepl",
+		DefaultLang: "en",
+		DeepLEnabled: true,
+		GtrEnabled: true,
+	}
+	err := mdb.FindOne(context.TODO(), bson.D{{"guildid", msg.GuildID.String()}}).Decode(&guildPrefs)
+
+	if err == mongo.ErrNoDocuments {
+		mdb.InsertOne(context.TODO(), defaultSettings)
+		mdb.FindOne(context.TODO(), bson.D{{"guildid", msg.GuildID.String()}}).Decode(&guildPrefs)
+	} else if err == nil {} else {
+		fmt.Println("Database: " + err.Error())
+	}
+
 	var mStats runtime.MemStats
 	prefix := strings.Split(msg.Content, " ")[1]
 
@@ -58,9 +79,37 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client) {
 			gtrInfo+
 			"`@Diru info`\nDisplays technical information about the bot.\n\n"+
 			"`@Diru issue`\nDisplays a link to the GitHub issue tracker.")
+	} else if prefix == "toggle-provider" && cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" {
+		m, err := client.Guild(msg.GuildID).Member(msg.Author.ID).GetPermissions()
+		hasPermission := false
+
+		if err != nil {
+			msg.Reply(context.Background(), s, "Error: "+err.Error())
+		}
+
+		if m.Contains(disgord.PermissionManageServer) || m.Contains(disgord.PermissionAdministrator) { hasPermission = true }
+
+		if hasPermission {
+			funct := strings.Split(msg.Content, " ")[2]
+			filter := bson.D{{"guildid", msg.GuildID.String()}}
+			if funct == "default" {
+				if guildPrefs.PreferredService == "deepl" {
+					update := bson.D{{"$set", bson.D{{"preferredservice", "gtr"}}}}
+					mdb.UpdateOne(context.TODO(), filter, update)
+					msg.Reply(context.Background(), s, "Default provider set to Google Translate")
+				} else {
+					update := bson.D{{"$set", bson.D{{"preferredservice", "deepl"}}}}
+					mdb.UpdateOne(context.TODO(), filter, update)
+					msg.Reply(context.Background(), s, "Default provider set to DeepL")
+				}
+			}
+		} else {
+			msg.Reply(context.Background(), s, "You do not have permission to use this command.")
+		}
 	} else {
-		// Default to DPLA if none of the above prefixes and the token exists
-		if cfg.GetValue("deepl_token").(string) != "" {
+		if cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" {
+			Dpla(msg, s, c)
+		} else if cfg.GetValue("deepl_token").(string) != "" {
 			Dpla(msg, s, c)
 		} else {
 			Gtra(msg, s)
