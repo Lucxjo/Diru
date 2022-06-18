@@ -38,13 +38,13 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 	var mStats runtime.MemStats
 	prefix := strings.Split(msg.Content, " ")[1]
 
-	if prefix == "dpl" && cfg.GetValue("deepl_token").(string) != "" {
+	if prefix == "dpl" && cfg.GetValue("deepl_token").(string) != "" && guildPrefs.DeepLEnabled {
 		Dpl(msg, s, c)
-	} else if prefix == "dpla" && cfg.GetValue("deepl_token").(string) != "" {
+	} else if prefix == "dpla" && cfg.GetValue("deepl_token").(string) != "" && guildPrefs.DeepLEnabled {
 		Dpla(msg, s, c)
-	} else if prefix == "gtra" && cfg.GetValue("gtr_project_id").(string) != "" {
+	} else if prefix == "gtra" && cfg.GetValue("gtr_project_id").(string) != "" && guildPrefs.GtrEnabled {
 		Gtra(msg, s)
-	} else if prefix == "gtr" && cfg.GetValue("gtr_project_id").(string) != "" {
+	} else if prefix == "gtr" && cfg.GetValue("gtr_project_id").(string) != "" && guildPrefs.GtrEnabled {
 		Gtr(msg, s)
 	} else if prefix == "info" {
 		runtime.ReadMemStats(&mStats)
@@ -63,13 +63,13 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 		dplInfo := ""
 		gtrInfo := ""
 
-		if cfg.GetValue("deepl_token").(string) != "" {
+		if cfg.GetValue("deepl_token").(string) != "" && guildPrefs.DeepLEnabled {
 			dplInfo = "`@Diru dpl <lang> <phrase>`\nTranslates a phrase to a specified language with DeepL.\n\n" +
 				"`@Diru dpla <phrase>`\nTranslates a phrase to English (British) with DeepL.\n\n" +
 				"`@Diru <phrase>` \ndoes the same thing as `dpla` or `gtra` (depending on config)\n\n"
 		}
 
-		if cfg.GetValue("gtr_project_id").(string) != "" {
+		if cfg.GetValue("gtr_project_id").(string) != "" && guildPrefs.GtrEnabled {
 			gtrInfo = "`@Diru gtr <lang> <phrase>`\nTranslates a phrase to a specified language with Google Translate\n\n" +
 				"`@Diru gtra <phrase>`\nTranslates a phrase to English  with Google Translate\n\n"
 		}
@@ -129,11 +129,17 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 			msg.Reply(context.Background(), s, "You do not have permission to use this command.")
 		}
 	} else {
-		if cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" && guildPrefs.DeepLEnabled && guildPrefs.GtrEnabled {
-			if guildPrefs.PreferredService == "gtr" {
-				Gtra(msg, s)
-			} else {
+		if cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" {
+			if guildPrefs.DeepLEnabled && guildPrefs.GtrEnabled {
+				if guildPrefs.PreferredService == "gtr" {
+					Gtra(msg, s)
+				} else {
+					Dpla(msg, s, c)
+				}
+			} else if guildPrefs.DeepLEnabled {
 				Dpla(msg, s, c)
+			} else {
+				Gtra(msg, s)
 			}
 		} else if cfg.GetValue("deepl_token").(string) != "" {
 			Dpla(msg, s, c)
