@@ -17,6 +17,9 @@ import (
 )
 
 func main() {
+
+	go utils.DiruHttp()
+
 	cfg.Init("", map[string]interface{}{
 		"discord_token":  "",
 		"deepl_token":    "",
