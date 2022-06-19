@@ -5,6 +5,7 @@ on: ["push", "pull_request"]
 env: 
   DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
   GOOGLE_APPLICATION_CREDENTIALS: ./config/gcloud.json
+  GOOGLE_APP_CRED: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
   DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
 
 jobs:
@@ -22,7 +23,7 @@ jobs:
     - name: Build
       run: go build -v ./...
     - name: Setup tests
-      run: echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} >> ./config/gcloud.json
+      run: printf $GOOGLE_APP_CRED >> ./config/gcloud.json
     - name: Test
       run: go test ./... -race -covermode=atomic -coverprofile=coverage.txt
     - name: Upload coverage to Codecov
