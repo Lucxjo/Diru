@@ -4,7 +4,7 @@ on: ["push", "pull_request"]
 
 env: 
   DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
-  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  GOOGLE_APPLICATION_CREDENTIALS: ./config/gcloud.json
   DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
 
 jobs:
@@ -21,8 +21,9 @@ jobs:
 
     - name: Build
       run: go build -v ./...
-      
-    - name: Test DeepL
+    - name: Setup tests
+      run: echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} >> ./config/gcloud.json
+    - name: Test
       run: go test ./... -race -covermode=atomic -coverprofile=coverage.txt
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3.1.0
