@@ -1,10 +1,6 @@
 name: Go
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: ["push", "pull_request"]
 
 jobs:
 
@@ -20,3 +16,12 @@ jobs:
 
     - name: Build
       run: go build -v ./...
+      
+    - name: Test DeepL
+      run: DEEPL_TOKEN={{ secrets.DEEPL_TOKEN }} go test ./deepl -race -coverprofile=coverage.out -covermode=atomic
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3.1.0
+    - name: Test Google 
+      run: GOOGLE_APPLICATION_CREDENTIALS=../config/gcloud.json go test ./google -race -coverprofile=coverage.out -covermode=atomic
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3.1.0
