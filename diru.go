@@ -24,7 +24,7 @@ func main() {
 		"discord_token":  "",
 		"deepl_token":    "",
 		"gtr_project_id": "",
-		"db_uri":		 "mongodb://localhost:27017",
+		"db_uri":         "mongodb://localhost:27017",
 		"topgg": map[string]interface{}{
 			"token": "",
 			"id":    "",
