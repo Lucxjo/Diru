@@ -24,6 +24,7 @@ jobs:
       run: go build -v ./...
     - name: Setup tests
       run: | 
+        mkdir ./config/
         touch ./config/gcloud.json
         printf $GOOGLE_APP_CRED >> ./config/gcloud.json
     - name: Test
