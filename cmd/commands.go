@@ -36,6 +36,11 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 	}
 
 	var mStats runtime.MemStats
+
+	bu, _ := client.CurrentUser().Get()
+
+	if msg.Content != "<@"+ bu.ID.String() +">" {
+
 	prefix := strings.Split(msg.Content, " ")[1]
 
 	if prefix == "dpl" && cfg.GetValue("deepl_token").(string) != "" && guildPrefs.DeepLEnabled {
@@ -162,4 +167,23 @@ func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mon
 			Gtra(msg, s)
 		}
 	}
+} else {
+	if cfg.GetValue("deepl_token").(string) != "" && cfg.GetValue("gtr_project_id").(string) != "" {
+			if guildPrefs.DeepLEnabled && guildPrefs.GtrEnabled {
+				if guildPrefs.PreferredService == "gtr" {
+					Gtra(msg, s)
+				} else {
+					Dpla(msg, s, c)
+				}
+			} else if guildPrefs.DeepLEnabled {
+				Dpla(msg, s, c)
+			} else {
+				Gtra(msg, s)
+			}
+		} else if cfg.GetValue("deepl_token").(string) != "" {
+			Dpla(msg, s, c)
+		} else {
+			Gtra(msg, s)
+		}
+}
 }
