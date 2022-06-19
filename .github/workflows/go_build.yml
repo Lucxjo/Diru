@@ -2,6 +2,10 @@ name: Go
 
 on: ["push", "pull_request"]
 
+env: 
+  DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
+  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
 jobs:
 
   build:
@@ -18,10 +22,6 @@ jobs:
       run: go build -v ./...
       
     - name: Test DeepL
-      run: DEEPL_TOKEN={{ secrets.DEEPL_TOKEN }} go test ./deepl -race -coverprofile=coverage.out -covermode=atomic
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3.1.0
-    - name: Test Google 
-      run: GOOGLE_APPLICATION_CREDENTIALS=../config/gcloud.json go test ./google -race -coverprofile=coverage.out -covermode=atomic
+      run: go test ./deepl ./google -race -coverprofile=coverage.out -covermode=atomic
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3.1.0
