@@ -58,7 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/TimHugall"><img src="https://avatars.githubusercontent.com/u/39146315?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TimHugall</b></sub></a><br /><a href="https://github.com/Lucxjo/Diru/commits?author=TimHugall" title="Code">💻</a></td>
-    <td align="center"><a href="https://ludoviko.ch"><img src="https://avatars.githubusercontent.com/u/4950364?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ludoviko</b></sub></a><br /><a href="https://github.com/Lucxjo/Diru/commits?author=Lucxjo" title="Code">💻</a> <a href="#infra-Lucxjo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/Lucxjo/Diru/pulls?q=is%3Apr+reviewed-by%3ALucxjo" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://ludoviko.ch"><img src="https://avatars.githubusercontent.com/u/4950364?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ludoviko</b></sub></a><br /><a href="https://github.com/Lucxjo/Diru/commits?author=Lucxjo" title="Code">💻</a> <a href="#infra-Lucxjo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/Lucxjo/Diru/pulls?q=is%3Apr+reviewed-by%3ALucxjo" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/Lucxjo/Diru/issues?q=author%3ALucxjo" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
