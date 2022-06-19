@@ -5,6 +5,7 @@ on: ["push", "pull_request"]
 env: 
   DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
 
 jobs:
 
