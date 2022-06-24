@@ -3,7 +3,7 @@ module github.com/lucxjo/diru
 go 1.17
 
 require (
-	cloud.google.com/go/pubsub v1.22.2
+	cloud.google.com/go/pubsub v1.23.0
 	cloud.google.com/go/translate v1.2.0
 	github.com/andersfylling/disgord v0.35.1
 	github.com/bounoable/deepl v0.5.1
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	cloud.google.com/go v0.102.0 // indirect
+	cloud.google.com/go v0.102.1 // indirect
 	cloud.google.com/go/compute v1.6.1 // indirect
 	cloud.google.com/go/iam v0.3.0 // indirect
 	github.com/andersfylling/snowflake/v5 v5.0.1 // indirect
@@ -50,7 +50,7 @@ require (
 	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
 	google.golang.org/api v0.84.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20220616135557-88e70c0c3a90 // indirect
+	google.golang.org/genproto v0.0.0-20220617124728-180714bec0ad // indirect
 	google.golang.org/grpc v1.47.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/ini.v1 v1.66.6 // indirect
