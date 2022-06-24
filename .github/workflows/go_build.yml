@@ -26,7 +26,7 @@ jobs:
       run: | 
         mkdir ./config/
         touch ./config/gcloud.json
-        printf $GOOGLE_APP_CRED >> ./config/gcloud.json
+        cat $GOOGLE_APP_CRED >> ./config/gcloud.json
     - name: Test
       run: go test ./... -race -covermode=atomic -coverprofile=coverage.txt
     - name: Upload coverage to Codecov
