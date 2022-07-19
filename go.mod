@@ -3,7 +3,7 @@ module github.com/lucxjo/diru
 go 1.17
 
 require (
-	cloud.google.com/go/pubsub v1.23.1
+	cloud.google.com/go/pubsub v1.24.0
 	cloud.google.com/go/translate v1.2.0
 	github.com/andersfylling/disgord v0.35.1
 	github.com/bounoable/deepl v0.5.1
