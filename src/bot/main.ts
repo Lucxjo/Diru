@@ -13,6 +13,10 @@ export class Bot {
 	static async start() {
 		console.info('Starting bot...');
 
+		await importx(
+			dirname(import.meta.url) + '/{commands,events}/**/*.{ts,js}'
+		);
+
 		console.log(`ENV: ${NODE_ENV}`);
 		this._client = new Client({
 			intents: [
@@ -23,9 +27,7 @@ export class Bot {
 				NODE_ENV === 'development' ? [GUILD_ID ?? ''] : undefined,
 		});
 
-		await importx(
-			dirname(import.meta.url) + '/{commands,events}/**/*.{ts,js}'
-		);
+		console.info(this.client.botGuilds);
 
 		this._client.on('interactionCreate', (interaction) => {
 			this._client.executeInteraction(interaction);
