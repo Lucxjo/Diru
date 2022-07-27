@@ -1,8 +1,0 @@
-version: "3"
-
-services:
-  diru:
-    container_name: diru
-    image: diru
-    volumes:
-      - ./data:/app/config

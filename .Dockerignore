@@ -1,9 +1,0 @@
-/.env
-/data
-/config
-/dist
-/.github
-/.git
-/.goreleaser.yml
-/LICENSE
-*.md
