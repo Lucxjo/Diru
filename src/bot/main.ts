@@ -29,10 +29,6 @@ export class Bot {
 
 		console.info(this.client.botGuilds);
 
-		this._client.on('interactionCreate', (interaction) => {
-			this._client.executeInteraction(interaction);
-		});
-
 		if (!DISCORD_TOKEN) {
 			throw new Error('DISCORD_TOKEN is not set!');
 		} else await this._client.login(DISCORD_TOKEN!);
