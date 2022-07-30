@@ -11,10 +11,13 @@ import {
 	SimpleCommandMessage,
 	SimpleCommandOption,
 	Slash,
+	SlashChoice,
+	SlashChoiceType,
 	SlashGroup,
 	SlashOption,
 } from 'discordx';
 import { SecureConnect } from '../../../shared/SecureConnect';
+import { autoLanguage } from '../../../bot/helpers/deepl';
 
 @Discord()
 @SlashGroup({ name: 'translate', description: 'Translate text' })
@@ -38,6 +41,12 @@ export class Translate {
 			required: false,
 		})
 		data: boolean = false,
+		@SlashOption('target-language', {
+			description: 'The language to translate to',
+			type: ApplicationCommandOptionType.String,
+			required: false,
+		})
+		targetLanguage: string = 'XX',
 		interaction: CommandInteraction
 	) {
 		let embedFields: { name: string; value: string }[] = [
@@ -48,6 +57,7 @@ export class Translate {
 			.post('http://localhost:3000/api/translate/deepl', {
 				text: phrase,
 				KEY: SecureConnect.key,
+				LANG_CODE: autoLanguage(interaction.locale, targetLanguage),
 			})
 			.then((res) => {
 				embedFields.push(
@@ -105,7 +115,7 @@ export class Translate {
 					new EmbedBuilder()
 						.setTitle('Error')
 						.setDescription(
-							'You need to specify a phrase to translate\nUsage: `@Diru dpl <language>, <phrase>`'
+							'You need to specify a phrase to translate\nUsage: `@Diru dpla <phrase>`'
 						)
 						.setColor('Red'),
 				],

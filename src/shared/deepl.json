@@ -1,0 +1,138 @@
+{
+	"target": [
+		{
+			"name": "Bulgarian",
+			"code": "BG"
+		},
+		{
+			"name": "Czech",
+			"code": "CS"
+		},
+		{
+			"name": "Danish",
+			"code": "DA"
+		},
+		{
+			"name": "German",
+			"code": "DE"
+		},
+		{
+			"name": "Greek",
+			"code": "EL"
+		},
+		{
+			"name": "English (British)",
+			"code": "EN-GB",
+			"aliases": [
+				"English",
+				"Traditional English",
+				"British",
+				"UK English",
+				"British English"
+			]
+		},
+		{
+			"name": "English (US-ian)",
+			"code": "EN-US",
+			"aliases": [
+				"English",
+				"Simplified English",
+				"US-ian",
+				"USian",
+				"US English",
+				"US-ian English",
+				"USian English",
+				"American",
+				"American English"
+			]
+		},
+		{
+			"name": "Spanish",
+			"code": "ES"
+		},
+		{
+			"name": "Estonian",
+			"code": "ET"
+		},
+		{
+			"name": "Finnish",
+			"code": "FI"
+		},
+		{
+			"name": "French",
+			"code": "FR"
+		},
+		{
+			"name": "Hungarian",
+			"code": "HU"
+		},
+		{
+			"name": "Indonesian",
+			"code": "ID"
+		},
+		{
+			"name": "Italian",
+			"code": "IT"
+		},
+		{
+			"name": "Japanese",
+			"code": "JA"
+		},
+		{
+			"name": "Lithuanian",
+			"code": "LT"
+		},
+		{
+			"name": "Latvian",
+			"code": "LV"
+		},
+		{
+			"name": "Dutch",
+			"code": "NL"
+		},
+		{
+			"name": "Polish",
+			"code": "PL"
+		},
+		{
+			"name": "Portuguese",
+			"code": "PT-PT"
+		},
+		{
+			"name": "Portuguese (Brazillian)",
+			"code": "PT-BR"
+		},
+		{
+			"name": "Romanian",
+			"code": "RO"
+		},
+		{
+			"name": "Russian",
+			"code": "RU"
+		},
+		{
+			"name": "Slovak",
+			"code": "SK"
+		},
+		{
+			"name": "Slovenian",
+			"code": "SL"
+		},
+		{
+			"name": "Swedish",
+			"code": "SV"
+		},
+		{
+			"name": "Turkish",
+			"code": "TR"
+		},
+		{
+			"name": "Chinese",
+			"code": "ZH"
+		},
+		{
+			"name": "Auto",
+			"code": "XX"
+		}
+	]
+}
