@@ -48,7 +48,6 @@ export class Server {
 							dataToSend
 						)
 						.then((response) => {
-							console.log(response.data);
 							res.send(response.data.translations[0]);
 							return;
 						})
