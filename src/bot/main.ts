@@ -1,6 +1,11 @@
 import { Client } from 'discordx';
 import { importx, dirname } from '@discordx/importer';
-import { GUILD_ID, NODE_ENV, DISCORD_TOKEN } from '../consts';
+import {
+	GUILD_ID,
+	NODE_ENV,
+	DISCORD_TOKEN,
+	DISCORD_CLIENT_ID,
+} from '../consts';
 import { IntentsBitField } from 'discord.js';
 import { SecureConnect } from '../shared/SecureConnect';
 
@@ -12,6 +17,12 @@ export class Bot {
 	}
 
 	static async start() {
+		if (DISCORD_CLIENT_ID === undefined || DISCORD_TOKEN === undefined) {
+			throw new Error(
+				'DISCORD_CLIENT_ID and DISCORD_TOKEN must be defined'
+			);
+		}
+
 		console.info('Starting bot...');
 
 		await importx(
@@ -26,7 +37,7 @@ export class Bot {
 		console.log(`ENV: ${NODE_ENV}`);
 		this._client = new Client({
 			simpleCommand: {
-				prefix: ['<@946066668734545971>', '<@!946066668734545971>'],
+				prefix: [`<@${DISCORD_CLIENT_ID}>`, `<@!${DISCORD_CLIENT_ID}>`],
 			},
 			intents: [
 				IntentsBitField.Flags.Guilds,

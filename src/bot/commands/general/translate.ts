@@ -11,21 +11,17 @@ import {
 	SimpleCommandMessage,
 	SimpleCommandOption,
 	Slash,
-	SlashChoice,
-	SlashChoiceType,
 	SlashGroup,
 	SlashOption,
 } from 'discordx';
 import { SecureConnect } from '../../../shared/SecureConnect';
-import { autoLanguage } from '../../../bot/helpers/deepl';
+import { autoLanguage, verifyLanguage } from '../../../bot/helpers/deepl';
 
 @Discord()
 @SlashGroup({ name: 'translate', description: 'Translate text' })
 @SlashGroup('translate')
 export class Translate {
-	private static embed = new EmbedBuilder()
-		.setTitle('DeepL Translation')
-		.setColor('Aqua');
+	private static embed = new EmbedBuilder().setTitle('DeepL Translation');
 
 	@Slash('deepl', { description: 'Translate text using DeepL' })
 	async deeplSlash(
@@ -53,11 +49,16 @@ export class Translate {
 			{ name: 'Requested phrase:', value: phrase },
 		];
 
+		const { langCode, defaultCode } =
+			targetLanguage === 'XX'
+				? autoLanguage(interaction.locale)
+				: verifyLanguage(targetLanguage);
+
 		await axios
 			.post('http://localhost:3000/api/translate/deepl', {
 				text: phrase,
 				KEY: SecureConnect.key,
-				LANG_CODE: autoLanguage(interaction.locale, targetLanguage),
+				LANG_CODE: langCode === '' ? 'EN-GB' : langCode,
 			})
 			.then((res) => {
 				embedFields.push(
@@ -75,7 +76,17 @@ export class Translate {
 		if (data) {
 			Translate.embed.addFields(embedFields);
 		} else {
-			Translate.embed.setDescription(embedFields[2].value);
+			if (!defaultCode) {
+				Translate.embed
+					.setDescription(embedFields[2].value)
+					.setColor('Aqua');
+			} else {
+				Translate.embed
+					.setDescription(
+						`${embedFields[2].value}\n\n**Note:** The language supplied is not supported by DeepL, so the translation was done using British English.`
+					)
+					.setColor('Orange');
+			}
 		}
 
 		if (
@@ -96,6 +107,72 @@ export class Translate {
 				ephemeral: true,
 			});
 		}
+	}
+
+	@SimpleCommand('dpl', {
+		description: 'Translate text using DeepL',
+		argSplitter: ', ',
+	})
+	async deeplSimple(
+		@SimpleCommandOption('target-lang')
+		targetLang: string,
+		@SimpleCommandOption('phrase')
+		phrase: string,
+		command: SimpleCommandMessage
+	) {
+		if (!phrase) {
+			command.message.reply({
+				embeds: [
+					new EmbedBuilder()
+						.setTitle('Error')
+						.setDescription(
+							'You need to specify a phrase and a target language to translate\nUsage: `@Diru dpla <target-language>, <phrase>`\n\n**Note:** The comma and space is required between the target language and the phrase.'
+						)
+						.setColor('Red'),
+				],
+			});
+			return;
+		}
+
+		let embedFields: { name: string; value: string }[] = [
+			{ name: 'Requested phrase:', value: phrase },
+		];
+		const { langCode, defaultCode } = verifyLanguage(targetLang);
+
+		await axios
+			.post('http://localhost:3000/api/translate/deepl', {
+				text: phrase,
+				KEY: SecureConnect.key,
+				LANG_CODE: langCode === '' ? 'EN-GB' : langCode,
+			})
+			.then((res) => {
+				embedFields.push(
+					{
+						name: 'Detected language:',
+						value: res.data.detected_source_language,
+					},
+					{
+						name: 'Translated phrase:',
+						value: res.data.text,
+					}
+				);
+			});
+
+		if (!defaultCode) {
+			Translate.embed
+				.setDescription(embedFields[2].value)
+				.setColor('Aqua');
+		} else {
+			Translate.embed
+				.setDescription(
+					`${embedFields[2].value}\n\n**Note:** The language supplied is not supported by DeepL, so the translation was done using British English.`
+				)
+				.setColor('Orange');
+		}
+
+		command.message.reply({
+			embeds: [Translate.embed],
+		});
 	}
 
 	@SimpleCommand('dpla', {
@@ -145,7 +222,7 @@ export class Translate {
 				);
 			});
 
-		Translate.embed.setDescription(embedFields[2].value);
+		Translate.embed.setDescription(embedFields[2].value).setColor('Aqua');
 
 		command.message.reply({
 			embeds: [Translate.embed],

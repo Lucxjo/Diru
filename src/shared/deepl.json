@@ -35,12 +35,9 @@
 			"name": "English (US-ian)",
 			"code": "EN-US",
 			"aliases": [
-				"English",
 				"Simplified English",
-				"US-ian",
 				"USian",
 				"US English",
-				"US-ian English",
 				"USian English",
 				"American",
 				"American English"
@@ -100,7 +97,8 @@
 		},
 		{
 			"name": "Portuguese (Brazillian)",
-			"code": "PT-BR"
+			"code": "PT-BR",
+			"aliases": ["Brazillian"]
 		},
 		{
 			"name": "Romanian",

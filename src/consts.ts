@@ -1,5 +1,5 @@
 import 'dotenv/config';
-export const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID, DEEPL_TOKEN } = process.env;
+export const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID, DEEPL_TOKEN, DISCORD_CLIENT_ID } = process.env;
 
 export const NODE_ENV = process.env.NODE_ENV ?? 'development';
 export const MONGO_URI =
