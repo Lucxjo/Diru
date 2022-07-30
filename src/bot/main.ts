@@ -2,6 +2,7 @@ import { Client } from 'discordx';
 import { importx, dirname } from '@discordx/importer';
 import { GUILD_ID, NODE_ENV, DISCORD_TOKEN } from '../consts';
 import { IntentsBitField } from 'discord.js';
+import { SecureConnect } from '../shared/SecureConnect';
 
 export class Bot {
 	private static _client: Client;
@@ -14,8 +15,13 @@ export class Bot {
 		console.info('Starting bot...');
 
 		await importx(
-			dirname(import.meta.url) + '/{commands,events,interactions}/**/*.{ts,js}'
+			dirname(import.meta.url) +
+				'/{commands,events,interactions}/**/*.{ts,js}'
 		);
+
+		if (NODE_ENV === 'development') {
+			console.log(`Discord: ${SecureConnect.key}`);
+		}
 
 		console.log(`ENV: ${NODE_ENV}`);
 		this._client = new Client({
