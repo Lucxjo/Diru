@@ -5,7 +5,7 @@ import {
 	CommandInteraction,
 	EmbedBuilder,
 } from 'discord.js';
-import { Discord, Slash } from 'discordx';
+import { Discord, SimpleCommand, SimpleCommandMessage, Slash } from 'discordx';
 import pkgJson from '../../../../package.json' assert { type: 'json' };
 
 @Discord()
@@ -41,25 +41,38 @@ export class Info {
 			},
 		]);
 
-	@Slash('info')
+	@Slash('info', {
+		description: 'Get information about the bot.',
+		dmPermission: true,
+	})
 	async slash(interaction: CommandInteraction) {
 		const srcBtn = new ButtonBuilder()
 			.setLabel('Source')
 			.setEmoji('📦')
 			.setURL('https://github.com/Lucxjo/Diru')
 			.setStyle(ButtonStyle.Link);
-		
+
 		const issueBtn = new ButtonBuilder()
 			.setLabel('Report an issue')
 			.setEmoji('📩')
 			.setStyle(ButtonStyle.Link)
 			.setURL('https://github.com/Lucxjo/Diru/issues');
-		
-		const btnRow = new ActionRowBuilder<ButtonBuilder>().addComponents(srcBtn, issueBtn);
+
+		const btnRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			srcBtn,
+			issueBtn
+		);
 		interaction.reply({
 			embeds: [this._embed],
 			ephemeral: true,
 			components: [btnRow],
+		});
+	}
+
+	@SimpleCommand('info', { description: 'Get bot information' })
+	async simple(cmd: SimpleCommandMessage) {
+		cmd.message.reply({
+			embeds: [this._embed],
 		});
 	}
 }

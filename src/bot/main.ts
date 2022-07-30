@@ -14,14 +14,19 @@ export class Bot {
 		console.info('Starting bot...');
 
 		await importx(
-			dirname(import.meta.url) + '/{commands,events}/**/*.{ts,js}'
+			dirname(import.meta.url) + '/{commands,events,interactions}/**/*.{ts,js}'
 		);
 
 		console.log(`ENV: ${NODE_ENV}`);
 		this._client = new Client({
+			simpleCommand: {
+				prefix: ['<@946066668734545971>', '<@!946066668734545971>'],
+			},
 			intents: [
+				IntentsBitField.Flags.Guilds,
 				IntentsBitField.Flags.GuildMessages,
 				IntentsBitField.Flags.DirectMessages,
+				IntentsBitField.Flags.MessageContent,
 			],
 			botGuilds:
 				NODE_ENV === 'development' ? [GUILD_ID ?? ''] : undefined,
