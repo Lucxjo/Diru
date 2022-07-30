@@ -1,3 +1,12 @@
+import axios from 'axios';
+import {
+	CommandInteraction,
+	EmbedBuilder,
+	MessageContextMenuCommandInteraction,
+	PermissionsBitField,
+} from 'discord.js';
+import { SimpleCommandMessage } from 'discordx';
+import { SecureConnect } from '../../shared/SecureConnect';
 import deeplLangs from '../../shared/deepl.json' assert { type: 'json' };
 
 type DeepLTranslateOptions = typeof deeplLangs;
@@ -63,9 +72,9 @@ export const verifyLanguage = (lang: string) => {
 		if (_langCode.includes('_')) {
 			_langCode = _langCode.replace('_', '-');
 		}
-		({langCode, defaultCode} = autoLanguage(_langCode));
+		({ langCode, defaultCode } = autoLanguage(_langCode));
 	} else if (lang.length === 2) {
-		({langCode, defaultCode} = autoLanguage(lang.toUpperCase()));
+		({ langCode, defaultCode } = autoLanguage(lang.toUpperCase()));
 	} else {
 		deepLTranslateOptions.target.forEach(({ name, code, aliases }) => {
 			if (name.toUpperCase() === lang.toUpperCase()) {
@@ -75,12 +84,99 @@ export const verifyLanguage = (lang: string) => {
 					if (alias.toUpperCase() === lang.toUpperCase()) {
 						l = code;
 					}
-				})
-			} 
+				});
+			}
 		});
 		console.log(`bot/helpers/deepl.ts:62 ${l}`);
-		({langCode, defaultCode} = autoLanguage(l));
+		({ langCode, defaultCode } = autoLanguage(l));
 	}
 
 	return { langCode, defaultCode };
 };
+
+const deeplTranslate = async (
+	phrase: string,
+	targetLanguage = 'XX',
+	interaction:
+		| MessageContextMenuCommandInteraction
+		| CommandInteraction
+		| SimpleCommandMessage,
+	data = false
+) => {
+	let embed = new EmbedBuilder().setTitle('DeepL Translation');
+	let embedFields: { name: string; value: string }[] = [
+		{ name: 'Requested phrase:', value: phrase },
+	];
+
+	let descEnd = '';
+
+	if (interaction instanceof SimpleCommandMessage)
+		descEnd =
+			'\n\nSomething not looking quite right? Try the slash command instead.';
+
+	const { langCode, defaultCode } =
+		targetLanguage === 'XX' &&
+		!(interaction instanceof SimpleCommandMessage)
+			? autoLanguage(interaction.locale)
+			: verifyLanguage(targetLanguage);
+
+	await axios
+		.post('http://localhost:3000/api/translate/deepl', {
+			text: phrase,
+			KEY: SecureConnect.key,
+			LANG_CODE: langCode === '' ? 'EN-GB' : langCode,
+		})
+		.then((res) => {
+			embedFields.push(
+				{
+					name: 'Detected language:',
+					value: res.data.detected_source_language,
+				},
+				{
+					name: 'Translated phrase:',
+					value: res.data.text,
+				}
+			);
+		});
+
+	if (!defaultCode) {
+		embed.setColor('Aqua');
+		if (data) embed.addFields(embedFields);
+		else embed.setDescription(embedFields[2].value + descEnd);
+	} else {
+		embed.setColor('Orange');
+		embed.setDescription(
+			(data ? '' : embedFields[2].value + '\n\n') +
+				'**Note:** The language supplied is not supported by DeepL, so the translation was done using British English.' +
+				descEnd
+		);
+		if (data) embed.addFields(embedFields);
+	}
+
+	if (interaction instanceof CommandInteraction) {
+		if (
+			interaction.memberPermissions?.has(
+				PermissionsBitField.Flags.Administrator
+			) ||
+			interaction.memberPermissions?.has(
+				PermissionsBitField.Flags.ManageMessages
+			)
+		) {
+			interaction.reply({
+				embeds: [embed],
+				ephemeral: false,
+			});
+		} else {
+			interaction.reply({
+				embeds: [embed],
+				ephemeral: true,
+			});
+		}
+	} else if (interaction instanceof MessageContextMenuCommandInteraction) {
+		interaction.reply({ embeds: [embed] });
+	} else {
+		interaction.message.reply({ embeds: [embed] });
+	}
+};
+
+export default deeplTranslate;
