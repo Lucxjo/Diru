@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
 	ApplicationCommandOptionType,
 	CommandInteraction,
@@ -19,8 +18,6 @@ import deeplTranslate from '../../../bot/helpers/deepl';
 @SlashGroup({ name: 'translate', description: 'Translate text' })
 @SlashGroup('translate')
 export class Translate {
-	private static embed = new EmbedBuilder().setTitle('DeepL Translation');
-
 	@Slash('deepl', { description: 'Translate text using DeepL' })
 	async deeplSlash(
 		@SlashOption('phrase', {

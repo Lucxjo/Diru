@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
 	CommandInteraction,
 	EmbedBuilder,
@@ -120,24 +119,32 @@ const deeplTranslate = async (
 			? autoLanguage(interaction.locale)
 			: verifyLanguage(targetLanguage);
 
-	await axios
-		.post('http://localhost:3000/api/translate/deepl', {
+	await fetch('http://localhost:3000/api/translate/deepl', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
 			text: phrase,
-			KEY: SecureConnect.key,
 			LANG_CODE: langCode === '' ? 'EN-GB' : langCode,
-		})
-		.then((res) => {
+			KEY: SecureConnect.key,
+		}),
+	})
+		.then(async (res) => {
+			let data = await res.json();
+			console.log(`bot/helpers/deepl.ts:86 ${JSON.stringify(data)}`);
 			embedFields.push(
 				{
 					name: 'Detected language:',
-					value: res.data.detected_source_language,
+					value: data.detected_source_language,
 				},
 				{
 					name: 'Translated phrase:',
-					value: res.data.text,
+					value: data.text,
 				}
 			);
-		});
+		})
+		.catch(console.error);
 
 	if (!defaultCode) {
 		embed.setColor('Aqua');

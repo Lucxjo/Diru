@@ -1,79 +1,97 @@
-import axios from 'axios';
-import express from 'express';
+import fastify, { FastifyInstance } from 'fastify';
 import { DEEPL_TOKEN, NODE_ENV } from '../consts';
 import { SecureConnect } from '../shared/SecureConnect';
+import pug from 'pug';
+import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
+import { DeepLType } from './types/deepl';
+import console from 'console';
 
 export class Server {
-	private static _app: express.Express;
-
-	static get app(): express.Express {
-		return this._app;
-	}
-
 	static start() {
-		this._app = express();
-		this._app.use(express.json());
+		const app = fastify().withTypeProvider<TypeBoxTypeProvider>();
 
-		this.app.post(
+		app.register(import('@fastify/view'), {
+			engine: {
+				pug: pug,
+			},
+		});
+
+		const pages: { route: string; name: string; data?: object }[] = [
+			{
+				route: '/',
+				name: 'index.dev',
+			},
+			{
+				route: '/',
+				name: 'index',
+			},
+		];
+
+		pages.forEach((page) => {
+			pug.compileFile(`./src/server/pages/${page.name}.pug`);
+		});
+
+		app.post<{ Body: DeepLType }>(
 			'/api/translate/deepl',
-			async (req: express.Request, res: express.Response) => {
-				const {
-					text,
-					KEY,
-					LANG_CODE = 'EN-GB',
-				}: {
-					text: string | undefined;
-					KEY: string | undefined;
-					LANG_CODE: string;
-				} = req.body;
+			async (request, reply) => {
+				const { text, KEY, LANG_CODE = 'EN-GB' } = request.body;
 
 				if (KEY) {
 					if (KEY !== SecureConnect.key) {
-						res.status(401).send('Invalid key!');
+						reply.status(403).send('Invalid key!');
 						return;
 					}
 				} else {
-					res.status(401).send('No key!');
+					reply.status(403).send('No key!');
 					return;
 				}
 
 				if (text) {
-					const dataToSend = new URLSearchParams();
-					dataToSend.append('text', text);
-					dataToSend.append('target_lang', LANG_CODE);
-
-					const translate = axios
-						.post(
-							`https://api.deepl.com/v2/translate?auth_key=${DEEPL_TOKEN}`,
-							dataToSend
-						)
-						.then((response) => {
-							res.send(response.data.translations[0]);
-							return;
+					await fetch(
+						`https://api.deepl.com/v2/translate?text=${encodeURIComponent(
+							text
+						)}&target_lang=${encodeURIComponent(LANG_CODE)}`,
+						{
+							method: 'POST',
+							headers: {
+								Authorization: `DeepL-Auth-Key ${DEEPL_TOKEN}`,
+							},
+						}
+					)
+						.then((response) => response.json())
+						.then((data) => {
+							console.log(data);
+							reply.status(200).send(data.translations[0]);
 						})
 						.catch((error) => {
-							console.error(error);
-							res.sendStatus(500).send('Translation error!');
-							return;
+							console.log(error);
 						});
 				} else {
-					res.status(400).send('No text!');
+					reply.status(400).send('No text!');
 				}
 			}
 		);
 
-		this.app.get('/', (req, res) => {
+		app.get('/ping', async (request, reply) => {
+			reply.type('application/json').send({ apiRunning: true });
+		});
+
+		app.get('/', (request, reply) => {
 			if (NODE_ENV === 'development') {
-				res.send(
-					`<h1>Hello Diru!</h1> <p>This is a test server.</p> <p>SecureConnect string: ${SecureConnect.key}</p>`
-				);
+				reply.view('./src/server/pages/index.dev.pug', {
+					scString: SecureConnect.key,
+				});
 			} else {
-				res.send(`<h1>Hello Diru!</h1> <p>This is a test server.</p>`);
+				reply.view('./src/server/pages/index.pug');
 			}
 		});
 
-		this.app.listen(3000, () => {
-			console.log('Server is running on port 3000');
+		app.listen({ port: 3000 }, (err, address) => {
+			if (err) {
+				console.error(err);
+				process.exit(1);
+			}
+			console.log(`Server listening on ${address}`);
 		});
 	}
 }
