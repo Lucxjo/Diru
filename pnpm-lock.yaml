@@ -1,46 +1,93 @@
 lockfileVersion: 5.4
 
-specifiers:
-  '@discordx/importer': 1.1.10
-  '@fastify/type-provider-typebox': 2.2.0
-  '@fastify/view': 7.0.0
-  '@sinclair/typebox': 0.24.27
-  '@types/node': 18.6.1
-  '@types/pug': 2.0.6
-  discord.js: 14.0.3
-  discordx: 11.0.3
-  dotenv: 16.0.1
-  fastify: 4.3.0
-  fastify-swagger: 5.2.0
-  nodemon: 2.0.19
-  pug: 3.0.2
-  reflect-metadata: 0.1.13
-  ts-node: 10.9.1
-  tsc-watch: 5.0.3
-  tslib: 2.4.0
-  typescript: 4.7.4
+importers:
 
-dependencies:
-  '@discordx/importer': 1.1.10
-  '@fastify/type-provider-typebox': 2.2.0_d3ff7w7gxedhtsv3qnssvgenya
-  '@fastify/view': 7.0.0
-  '@sinclair/typebox': 0.24.27
-  discord.js: 14.0.3
-  discordx: 11.0.3_discord.js@14.0.3
-  dotenv: 16.0.1
-  fastify: 4.3.0
-  fastify-swagger: 5.2.0
-  pug: 3.0.2
-  reflect-metadata: 0.1.13
-  tslib: 2.4.0
+  .:
+    specifiers:
+      '@types/node': 18.6.1
+      diru-discord: workspace:*
+      diru-server: workspace:*
+      nodemon: 2.0.19
+      reflect-metadata: 0.1.13
+      ts-node: 10.9.1
+      tsc-watch: 5.0.3
+      tslib: 2.4.0
+      typescript: 4.7.4
+    dependencies:
+      diru-discord: link:src/bot
+      diru-server: link:src/server
+      reflect-metadata: 0.1.13
+      tslib: 2.4.0
+    devDependencies:
+      '@types/node': 18.6.1
+      nodemon: 2.0.19
+      ts-node: 10.9.1_f6w67sjx3imwytyzb2qhabnzqe
+      tsc-watch: 5.0.3_typescript@4.7.4
+      typescript: 4.7.4
 
-devDependencies:
-  '@types/node': 18.6.1
-  '@types/pug': 2.0.6
-  nodemon: 2.0.19
-  ts-node: 10.9.1_f6w67sjx3imwytyzb2qhabnzqe
-  tsc-watch: 5.0.3_typescript@4.7.4
-  typescript: 4.7.4
+  src/bot:
+    specifiers:
+      '@discordx/importer': 1.1.10
+      '@types/node': 18.6.1
+      diru-shared: workspace:*
+      discord.js: 14.0.3
+      discordx: 11.0.3
+      nodemon: 2.0.19
+      reflect-metadata: 0.1.13
+      ts-node: 10.9.1
+      tsc-watch: 5.0.3
+      typescript: 4.7.4
+    dependencies:
+      '@discordx/importer': 1.1.10
+      diru-shared: link:../shared
+      discord.js: 14.0.3
+      discordx: 11.0.3_discord.js@14.0.3
+      reflect-metadata: 0.1.13
+    devDependencies:
+      '@types/node': 18.6.1
+      nodemon: 2.0.19
+      ts-node: 10.9.1_f6w67sjx3imwytyzb2qhabnzqe
+      tsc-watch: 5.0.3_typescript@4.7.4
+      typescript: 4.7.4
+
+  src/server:
+    specifiers:
+      '@fastify/type-provider-typebox': 2.2.0
+      '@fastify/view': 7.0.0
+      '@sinclair/typebox': 0.24.27
+      '@types/node': 18.6.1
+      '@types/pug': 2.0.6
+      diru-shared: workspace:*
+      fastify: 4.3.0
+      fastify-swagger: 5.2.0
+      nodemon: 2.0.19
+      pug: 3.0.2
+      reflect-metadata: 0.1.13
+      ts-node: 10.9.1
+      tsc-watch: 5.0.3
+      typescript: 4.7.4
+    dependencies:
+      '@fastify/type-provider-typebox': 2.2.0_d3ff7w7gxedhtsv3qnssvgenya
+      '@fastify/view': 7.0.0
+      '@sinclair/typebox': 0.24.27
+      diru-shared: link:../shared
+      fastify: 4.3.0
+      fastify-swagger: 5.2.0
+      pug: 3.0.2
+      reflect-metadata: 0.1.13
+    devDependencies:
+      '@types/node': 18.6.1
+      '@types/pug': 2.0.6
+      nodemon: 2.0.19
+      ts-node: 10.9.1_f6w67sjx3imwytyzb2qhabnzqe
+      tsc-watch: 5.0.3_typescript@4.7.4
+      typescript: 4.7.4
+
+  src/shared:
+    specifiers:
+      dotenv: 16.0.1
+    dependencies:
+      dotenv: 16.0.1
 
 packages:
 
@@ -528,7 +575,6 @@ packages:
   /dotenv/16.0.1:
     resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
     engines: {node: '>=12'}
-    dev: false
 
   /duplexer/0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}

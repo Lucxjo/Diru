@@ -5,9 +5,9 @@ import {
 	NODE_ENV,
 	DISCORD_TOKEN,
 	DISCORD_CLIENT_ID,
-} from '../consts';
+} from 'diru-shared/consts';
 import { IntentsBitField } from 'discord.js';
-import { SecureConnect } from '../shared/SecureConnect';
+import { SecureConnect } from 'diru-shared/SecureConnect';
 
 export class Bot {
 	private static _client: Client;

@@ -1,6 +1,6 @@
-import fastify, { FastifyInstance } from 'fastify';
-import { DEEPL_TOKEN, NODE_ENV } from '../consts';
-import { SecureConnect } from '../shared/SecureConnect';
+import fastify from 'fastify';
+import { DEEPL_TOKEN, NODE_ENV } from 'diru-shared/consts';
+import { SecureConnect } from 'diru-shared/SecureConnect';
 import pug from 'pug';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { DeepLType } from './types/deepl';
