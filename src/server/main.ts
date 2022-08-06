@@ -60,7 +60,6 @@ export class Server {
 					)
 						.then((response) => response.json())
 						.then((data) => {
-							console.log(data);
 							reply.status(200).send(data.translations[0]);
 						})
 						.catch((error) => {

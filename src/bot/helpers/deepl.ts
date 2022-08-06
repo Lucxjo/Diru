@@ -2,6 +2,7 @@ import {
 	CommandInteraction,
 	EmbedBuilder,
 	MessageContextMenuCommandInteraction,
+	ModalSubmitInteraction,
 	PermissionsBitField,
 } from 'discord.js';
 import { SimpleCommandMessage } from 'discordx';
@@ -86,7 +87,6 @@ export const verifyLanguage = (lang: string) => {
 				});
 			}
 		});
-		console.log(`bot/helpers/deepl.ts:62 ${l}`);
 		({ langCode, defaultCode } = autoLanguage(l));
 	}
 
@@ -99,7 +99,8 @@ const deeplTranslate = async (
 	interaction:
 		| MessageContextMenuCommandInteraction
 		| CommandInteraction
-		| SimpleCommandMessage,
+		| SimpleCommandMessage
+		| ModalSubmitInteraction,
 	data = false
 ) => {
 	let embed = new EmbedBuilder().setTitle('DeepL Translation');
@@ -132,7 +133,6 @@ const deeplTranslate = async (
 	})
 		.then(async (res) => {
 			let data = await res.json();
-			console.log(`bot/helpers/deepl.ts:86 ${JSON.stringify(data)}`);
 			embedFields.push(
 				{
 					name: 'Detected language:',
@@ -181,8 +181,10 @@ const deeplTranslate = async (
 		}
 	} else if (interaction instanceof MessageContextMenuCommandInteraction) {
 		interaction.reply({ embeds: [embed] });
+	} else if (interaction instanceof ModalSubmitInteraction) {
+		interaction.reply({ embeds: [embed] });
 	} else {
-		interaction.message.reply({ embeds: [embed] });
+		interaction.message?.reply({ embeds: [embed] });
 	}
 };
 
