@@ -60,7 +60,7 @@ export class Translate {
 					new EmbedBuilder()
 						.setTitle('Error')
 						.setDescription(
-							'You need to specify a phrase and a target language to translate\nUsage: `@Diru dpl <target-language>, <phrase>`\n\n**Note:** The comma and space is required between the target language and the phrase.'
+							'You need to specify a phrase and a target language to translate\nUsage: `@Diru dpl <target-language>, <phrase>`\n\n**Note:** The comma and space is required between the target language and the phrase.\n\nIf you are trying to translate a message, read the documentation on the changes between Diru.Go and Diru.Node [here](https://github.com/Lucxjo/Diru/wiki/Differences-between-Diru.Go-and-Diru.Node)'
 						)
 						.setColor('Red'),
 				],
@@ -88,7 +88,7 @@ export class Translate {
 					new EmbedBuilder()
 						.setTitle('Error')
 						.setDescription(
-							'You need to specify a phrase to translate\nUsage: `@Diru dpla <phrase>`'
+							'You need to specify a phrase to translate\nUsage: `@Diru dpla <phrase>`\n\nIf you are trying to translate a message, read the documentation on the changes between Diru.Go and Diru.Node [here](https://github.com/Lucxjo/Diru/wiki/Differences-between-Diru.Go-and-Diru.Node)'
 						)
 						.setColor('Red'),
 				],
