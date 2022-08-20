@@ -4,9 +4,10 @@ importers:
 
   .:
     specifiers:
+      '@lucxjo/diru-discord': workspace:*
+      '@lucxjo/diru-server': workspace:*
+      '@lucxjo/diru-shared': workspace:*
       '@types/node': 18.6.1
-      diru-discord: workspace:*
-      diru-server: workspace:*
       nodemon: 2.0.19
       reflect-metadata: 0.1.13
       ts-node: 10.9.1
@@ -14,8 +15,9 @@ importers:
       tslib: 2.4.0
       typescript: 4.7.4
     dependencies:
-      diru-discord: link:src/bot
-      diru-server: link:src/server
+      '@lucxjo/diru-discord': link:src/bot
+      '@lucxjo/diru-server': link:src/server
+      '@lucxjo/diru-shared': link:src/shared
       reflect-metadata: 0.1.13
       tslib: 2.4.0
     devDependencies:
@@ -28,8 +30,8 @@ importers:
   src/bot:
     specifiers:
       '@discordx/importer': 1.1.10
+      '@lucxjo/diru-shared': workspace:*
       '@types/node': 18.6.1
-      diru-shared: workspace:*
       discord.js: 14.0.3
       discordx: 11.0.3
       nodemon: 2.0.19
@@ -39,7 +41,7 @@ importers:
       typescript: 4.7.4
     dependencies:
       '@discordx/importer': 1.1.10
-      diru-shared: link:../shared
+      '@lucxjo/diru-shared': link:../shared
       discord.js: 14.0.3
       discordx: 11.0.3_discord.js@14.0.3
       reflect-metadata: 0.1.13
@@ -54,10 +56,10 @@ importers:
     specifiers:
       '@fastify/type-provider-typebox': 2.2.0
       '@fastify/view': 7.0.0
+      '@lucxjo/diru-shared': workspace:*
       '@sinclair/typebox': 0.24.27
       '@types/node': 18.6.1
       '@types/pug': 2.0.6
-      diru-shared: workspace:*
       fastify: 4.3.0
       fastify-swagger: 5.2.0
       nodemon: 2.0.19
@@ -69,8 +71,8 @@ importers:
     dependencies:
       '@fastify/type-provider-typebox': 2.2.0_d3ff7w7gxedhtsv3qnssvgenya
       '@fastify/view': 7.0.0
+      '@lucxjo/diru-shared': link:../shared
       '@sinclair/typebox': 0.24.27
-      diru-shared: link:../shared
       fastify: 4.3.0
       fastify-swagger: 5.2.0
       pug: 3.0.2
@@ -575,6 +577,7 @@ packages:
   /dotenv/16.0.1:
     resolution: {integrity: sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==}
     engines: {node: '>=12'}
+    dev: false
 
   /duplexer/0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}

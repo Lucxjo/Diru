@@ -1,13 +1,19 @@
 {
-	"name": "diru-shared",
-	"version": "2.0.0-dev",
+	"name": "@lucxjo/diru-shared",
 	"description": "Shared utilities package for the Diru bot",
+	"repository": "https://github.com/lucxjo/diru",
 	"author": "Lucxjo",
-	"private": true,
 	"type": "module",
+	"version": "2.0.0-dev",
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=7.0.0"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"scripts": {
+		"build": "tsc"
 	},
 	"dependencies": {
 		"dotenv": "16.0.1"

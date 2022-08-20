@@ -1,19 +1,22 @@
 {
-	"name": "diru-server",
-	"version": "2.0.0-dev",
+	"name": "@lucxjo/diru-server",
 	"description": "Server package for the Diru bot",
+	"repository": "https://github.com/lucxjo/diru",
 	"author": "Lucxjo",
-	"private": true,
 	"type": "module",
+	"version": "2.0.0-dev",
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=7.0.0"
+	},
+	"scripts": {
+		"build": "tsc"
 	},
 	"dependencies": {
 		"@fastify/type-provider-typebox": "2.2.0",
 		"@fastify/view": "7.0.0",
 		"@sinclair/typebox": "0.24.27",
-		"diru-shared": "workspace:*",
+		"@lucxjo/diru-shared": "workspace:*",
 		"fastify": "4.3.0",
 		"fastify-swagger": "5.2.0",
 		"pug": "3.0.2",

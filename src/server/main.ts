@@ -1,6 +1,6 @@
 import fastify from 'fastify';
-import { DEEPL_TOKEN, NODE_ENV } from 'diru-shared/consts';
-import { SecureConnect } from 'diru-shared/SecureConnect';
+import { DEEPL_TOKEN, NODE_ENV } from '@lucxjo/diru-shared/consts';
+import { SecureConnect } from '@lucxjo/diru-shared/SecureConnect';
 import pug from 'pug';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { DeepLType } from './types/deepl';
@@ -28,7 +28,7 @@ export class Server {
 		];
 
 		pages.forEach((page) => {
-			pug.compileFile(`./src/server/pages/${page.name}.pug`);
+			pug.compileFile(`./pages/${page.name}.pug`);
 		});
 
 		app.post<{ Body: DeepLType }>(
@@ -77,11 +77,11 @@ export class Server {
 
 		app.get('/', (request, reply) => {
 			if (NODE_ENV === 'development') {
-				reply.view('./src/server/pages/index.dev.pug', {
+				reply.view('./pages/index.dev.pug', {
 					scString: SecureConnect.key,
 				});
 			} else {
-				reply.view('./src/server/pages/index.pug');
+				reply.view('./pages/index.pug');
 			}
 		});
 

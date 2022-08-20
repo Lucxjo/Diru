@@ -1,17 +1,20 @@
 {
-	"name": "diru-discord",
-	"version": "2.0.0-dev",
+	"name": "@lucxjo/diru-discord",
 	"description": "Discord package for the Diru bot",
+	"repository": "https://github.com/lucxjo/diru",
 	"author": "Lucxjo",
-	"private": true,
 	"type": "module",
+	"version": "2.0.0-dev",
 	"engines": {
 		"node": ">=18.0.0",
 		"pnpm": ">=7.0.0"
 	},
+	"scripts": {
+		"build": "tsc"
+	},
 	"dependencies": {
 		"@discordx/importer": "1.1.10",
-		"diru-shared": "workspace:*",
+		"@lucxjo/diru-shared": "workspace:*",
 		"discord.js": "14.0.3",
 		"discordx": "11.0.3",
 		"reflect-metadata": "0.1.13"

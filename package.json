@@ -1,5 +1,5 @@
 {
-	"name": "diru",
+	"name": "@lucxjo/diru",
 	"version": "2.0.0-dev",
 	"description": "",
 	"private": true,
@@ -8,8 +8,8 @@
 		"node": ">=18.0.0",
 		"pnpm": ">=7.0.0"
 	},
-	"main": "src/index.js",
 	"scripts": {
+		"build": "tsc",
 		"dev": "NODE_ENV=development tsc-watch --onSuccess \"pnpm watch\"",
 		"watch": "nodemon --watch './**/*.{js,ts,graphql,json}' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' src/index.ts"
 	},
@@ -17,8 +17,9 @@
 	"author": "Lucxjo",
 	"license": "MIT",
 	"dependencies": {
-		"diru-discord": "workspace:*",
-		"diru-server": "workspace:*",
+		"@lucxjo/diru-discord": "workspace:*",
+		"@lucxjo/diru-server": "workspace:*",
+		"@lucxjo/diru-shared": "workspace:*",
 		"reflect-metadata": "0.1.13",
 		"tslib": "2.4.0"
 	},
