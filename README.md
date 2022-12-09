@@ -1,8 +1,16 @@
 # Diru
+
+<div class="center">
+<a href="https://masto.nu/@Ludoviko" rel="me"><img alt="Mastodon Follow" src="https://img.shields.io/mastodon/follow/109337353066993672?color=cba6f7&domain=https%3A%2F%2Fmasto.nu&logoColor=cba6f7&style=for-the-badge&labelColor=313244&logo=mastodon"></a>
+<a href="https://discord.gg/UZRyJrEPTU"><img alt="Discord" src="https://img.shields.io/discord/847533270630531132?color=b4befe&logo=discord&logoColor=b4befe&style=for-the-badge&labelColor=313244"></a>
+<a href="https://github.com/Lucxjo/Diru"><img alt="GitHub" src="https://img.shields.io/github/license/Lucxjo/Diru?color=a6e3a1&style=for-the-badge&labelColor=313244"></a>
+<a href="https://github.com/Lucxjo/Diru/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/Lucxjo/Diru?color=eba0ac&label=Issues&logo=gitbook&logoColor=eba0ac&style=for-the-badge&labelColor=313244"></a>
+</div>
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-[![Discord Bots](https://top.gg/api/widget/servers/944915663632355388.svg)](https://top.gg/bot/944915663632355388) [![Discord](https://img.shields.io/discord/847533270630531132?style=flat-square)](https://discord.gg/UZRyJrEPTU)  
+[![Discord Bots](https://top.gg/api/widget/servers/944915663632355388.svg)](https://top.gg/bot/944915663632355388)   
 A Discord translation bot written in Go
 
 [![Discord Bots](https://top.gg/api/widget/944915663632355388.svg)](https://top.gg/bot/944915663632355388)
