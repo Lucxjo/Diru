@@ -61,6 +61,9 @@ func main() {
 		Intents:     disgord.IntentGuildMessages | disgord.IntentDirectMessages,
 	})
 
+	cmd.GetGlobalRegisteredAppCmds(client)
+	cmd.GetAllGuildRegisteredAppCmds(client)
+
 	u, err := client.BotAuthorizeURL(disgord.PermissionUseSlashCommands, []string{"bot", "application.commands"})
 	if err != nil {
 		panic(err)
