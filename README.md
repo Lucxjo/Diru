@@ -1,6 +1,6 @@
 # Diru
 
-<div class="center">
+<div align="center">
 <a href="https://masto.nu/@Ludoviko" rel="me"><img alt="Mastodon Follow" src="https://img.shields.io/mastodon/follow/109337353066993672?color=cba6f7&domain=https%3A%2F%2Fmasto.nu&logoColor=cba6f7&style=for-the-badge&labelColor=313244&logo=mastodon"></a>
 <a href="https://discord.gg/UZRyJrEPTU"><img alt="Discord" src="https://img.shields.io/discord/847533270630531132?color=b4befe&logo=discord&logoColor=b4befe&style=for-the-badge&labelColor=313244"></a>
 <a href="https://github.com/Lucxjo/Diru"><img alt="GitHub" src="https://img.shields.io/github/license/Lucxjo/Diru?color=a6e3a1&style=for-the-badge&labelColor=313244"></a>
