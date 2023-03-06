@@ -9,7 +9,7 @@ require (
 	github.com/bounoable/deepl v0.5.1
 	github.com/spf13/viper v1.12.0
 	go.mongodb.org/mongo-driver v1.9.1
-	golang.org/x/text v0.3.7
+	golang.org/x/text v0.8.0
 )
 
 require (
@@ -48,7 +48,7 @@ require (
 	golang.org/x/net v0.0.0-20220617184016-355a448f1bc9 // indirect
 	golang.org/x/oauth2 v0.0.0-20220622183110-fd043fe589d2 // indirect
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f // indirect
-	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
+	golang.org/x/sys v0.5.0 // indirect
 	google.golang.org/api v0.85.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220617124728-180714bec0ad // indirect
