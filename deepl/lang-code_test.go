@@ -42,6 +42,11 @@ var langs = []testCodeStruct{
 	{"SV", true, deeplgo.Swedish},
 	{"ZH", true, deeplgo.Chinese},
 	{"EO", false, deeplgo.EnglishBritish},
+	{"NB", true, NorwegianBokmal},
+	{"ID", true, Indonesian},
+	{"KO", true, Korean},
+	{"TR", true, Turkish},
+	{"UK", true, Ukrainian},
 }
 
 func TestCheckCode(t *testing.T) {
