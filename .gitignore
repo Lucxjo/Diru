@@ -20,3 +20,5 @@ dist/
 /config
 /data
 .vscode/settings.json
+
+codecov.*

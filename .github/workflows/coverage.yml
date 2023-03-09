@@ -1,0 +1,34 @@
+name: Go
+
+on: ["push", "pull_request"]
+
+env: 
+  DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
+  GOOGLE_APPLICATION_CREDENTIALS: ./config/gcloud.json
+  GOOGLE_APP_CRED: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - name: Build
+      run: go build -v ./...
+    - name: Setup tests
+      run: mkdir ./config/ && touch ./config/gcloud.json && echo $GOOGLE_APP_CRED >> ./config/gcloud.json
+    - name: Test
+      run: go test ./... -race -covermode=atomic -coverprofile=coverage.txt
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3.1.0
+      with: 
+        token: ${{ secrets.CODECOV }}
+        file: ./coverage.txt
+        flags: unittests
