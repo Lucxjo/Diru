@@ -9,6 +9,8 @@ import (
 )
 
 func TestTranslateTo(t *testing.T) {
+	t.Parallel()
+	
 	dpl_token := os.Getenv("DEEPL_TOKEN")
 
 	client := deeplgo.New(dpl_token)

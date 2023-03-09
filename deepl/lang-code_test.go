@@ -50,6 +50,7 @@ var langs = []testCodeStruct{
 }
 
 func TestCheckCode(t *testing.T) {
+	t.Parallel()
 
 	for _, lang := range langs {
 		if CheckCode(lang.langCode) != lang.expected {
@@ -61,6 +62,7 @@ func TestCheckCode(t *testing.T) {
 }
 
 func TestGetLang(t *testing.T) {
+	t.Parallel()
 
 	for _, lang := range langs {
 		if GetLang(lang.langCode) != lang.expectedLang {
