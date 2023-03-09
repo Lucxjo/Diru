@@ -1,8 +1,8 @@
 # Diru
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=for-the-badge)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-[![Discord Bots](https://top.gg/api/widget/servers/944915663632355388.svg)](https://top.gg/bot/944915663632355388) [![Discord](https://img.shields.io/discord/847533270630531132?style=flat-square)](https://discord.gg/UZRyJrEPTU)  
+[![Discord](https://img.shields.io/discord/847533270630531132?style=for-the-badge)](https://discord.gg/UZRyJrEPTU) ![Codecov](https://img.shields.io/codecov/c/gh/Lucxjo/Diru/branch/release/go?style=for-the-badge&token=SGMB3MJEGB&logo=codecov)  
 A Discord translation bot written in Go
 
 [![Discord Bots](https://top.gg/api/widget/944915663632355388.svg)](https://top.gg/bot/944915663632355388)
