@@ -2,8 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"flag"
 	"fmt"
-	"log"
 
 	"github.com/andersfylling/disgord"
 	"github.com/andersfylling/disgord/std"
@@ -17,14 +18,19 @@ import (
 	"cloud.google.com/go/pubsub"
 )
 
-var commands = []*disgord.CreateApplicationCommand{
-	{
-		Name:        "Test Command",
-		Description: "Testing",
-	},
+var (
+	clearCommands bool
+)
+
+func initFlags() {
+	flag.BoolVar(&clearCommands, "cmdclr", false, "Clears existing commands with Discord")
+
+	flag.Parse()
 }
 
 func main() {
+	initFlags()
+	var log = utils.Log
 
 	go utils.DiruHttp()
 
@@ -42,12 +48,12 @@ func main() {
 	mClient, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(cfg.GetValue("db_uri").(string)))
 
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
 	}
 
 	defer func() {
 		if err := mClient.Disconnect(context.TODO()); err != nil {
-			panic(err)
+			log.Panicln(err)
 		}
 	}()
 
@@ -55,22 +61,21 @@ func main() {
 
 	var dClient *deeplgo.Client
 
-	client := disgord.New(disgord.Config{
-		BotToken:    cfg.GetValue("discord_token").(string),
+	client := utils.DisClient{
+		Token:       cfg.GetValue("discord_token").(string),
 		ProjectName: "Diru",
 		Intents:     disgord.IntentGuildMessages | disgord.IntentDirectMessages,
-	})
+		Logger:      log,
+	}
+	client.CreateDisgordClient()
 
-	cmd.GetGlobalRegisteredAppCmds(client)
-	cmd.GetAllGuildRegisteredAppCmds(client)
-
-	u, err := client.BotAuthorizeURL(disgord.PermissionUseSlashCommands, []string{"bot", "application.commands"})
+	u, err := client.C.BotAuthorizeURL(disgord.PermissionUseSlashCommands, []string{"bot", "application.commands"})
 	if err != nil {
-		panic(err)
+		log.Panicln(err)
 	}
 	fmt.Println(u)
 	if cfg.GetValue("deepl_token").(string) == "" && cfg.GetValue("gtr_project_id").(string) == "" {
-		panic("No translation provider configured")
+		log.Panicln("No translation provider configured")
 	}
 	if cfg.GetValue("deepl_token").(string) != "" {
 		dClient = deeplgo.New(cfg.GetValue("deepl_token").(string))
@@ -80,35 +85,43 @@ func main() {
 		gClient, err := pubsub.NewClient(context.Background(), cfg.GetValue("gtr_project_id").(string))
 
 		if err != nil {
-			panic(err)
+			log.Panicln(err)
 		}
 
 		defer gClient.Close()
 	}
 
-	cont, _ := std.NewMsgFilter(context.Background(), client)
+	cont, _ := std.NewMsgFilter(context.Background(), client.C)
 
-	client.Gateway().BotReady(func() {
-		fmt.Println("Bot is now running.  Press CTRL-C to exit.")
-		bot, _ := client.Gateway().GetBot()
+	client.C.Gateway().BotReady(func() {
+		log.Infoln("Bot is now running.  Press CTRL-C to exit.")
+		bot, _ := client.C.Gateway().GetBot()
+		client.InitFunctionParams()
+
+		if clearCommands {
+			res, err := client.HttpGet("applications/" + client.ID + "/guilds/820654593531969547/commands")
+
+			if err != nil {
+				log.Errorln("Error: ", err)
+			}
+			var data = []utils.DAppCmd{}
+
+			json.Unmarshal([]byte(res), &data)
+
+			fmt.Println(data)
+		}
 
 		if cfg.GetValue("topgg.token") != "" && cfg.GetValue("topgg.id") != "" {
 			utils.SendTopggData(cfg.GetValue("topgg.token").(string), cfg.GetValue("topgg.id").(string), bot.Shards, cfg.GetValue("discord_token").(string))
 		}
-
-		for i := range commands {
-			if err = client.ApplicationCommand(0).Guild(820654593531969547).Create(commands[i]); err != nil {
-				log.Fatal(err)
-			}
-		}
 	})
 
-	client.Gateway().WithMiddleware(cont.HasBotMentionPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
+	client.C.Gateway().WithMiddleware(cont.HasBotMentionPrefix).MessageCreate(func(s disgord.Session, h *disgord.MessageCreate) {
 		if !h.Message.Author.Bot {
-			cmd.Commands(h.Message, s, dClient, mcol, client)
+			cmd.Commands(h.Message, s, dClient, mcol, client.C)
 		}
 		//h.Message.Reply(context.Background(), s, "For help, see https://github.com/lucxjo/diru/wiki")
 	})
 
-	defer client.Gateway().StayConnectedUntilInterrupted()
+	defer client.C.Gateway().StayConnectedUntilInterrupted()
 }

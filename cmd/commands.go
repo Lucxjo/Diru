@@ -15,6 +15,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+var AppCommands = []*disgord.CreateApplicationCommand{
+	{
+		Name:        "Ping",
+		Description: "Replies with Pong!",
+	},
+}
+
 // Commands is a command manager. It simply calls the appropriate function based on the command.
 func Commands(msg *disgord.Message, s disgord.Session, c *deepl.Client, mdb *mongo.Collection, client *disgord.Client) {
 	var guildPrefs cfg.GuildPrefs
