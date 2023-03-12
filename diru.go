@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/andersfylling/disgord"
 	"github.com/andersfylling/disgord/std"
@@ -15,6 +16,13 @@ import (
 
 	"cloud.google.com/go/pubsub"
 )
+
+var commands = []*disgord.CreateApplicationCommand{
+	{
+		Name:        "Test Command",
+		Description: "Testing",
+	},
+}
 
 func main() {
 
@@ -53,7 +61,10 @@ func main() {
 		Intents:     disgord.IntentGuildMessages | disgord.IntentDirectMessages,
 	})
 
-	u, err := client.BotAuthorizeURL(disgord.PermissionUseSlashCommands, []string{"bot"})
+	cmd.GetGlobalRegisteredAppCmds(client)
+	cmd.GetAllGuildRegisteredAppCmds(client)
+
+	u, err := client.BotAuthorizeURL(disgord.PermissionUseSlashCommands, []string{"bot", "application.commands"})
 	if err != nil {
 		panic(err)
 	}
@@ -83,6 +94,12 @@ func main() {
 
 		if cfg.GetValue("topgg.token") != "" && cfg.GetValue("topgg.id") != "" {
 			utils.SendTopggData(cfg.GetValue("topgg.token").(string), cfg.GetValue("topgg.id").(string), bot.Shards, cfg.GetValue("discord_token").(string))
+		}
+
+		for i := range commands {
+			if err = client.ApplicationCommand(0).Guild(820654593531969547).Create(commands[i]); err != nil {
+				log.Fatal(err)
+			}
 		}
 	})
 
