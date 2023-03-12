@@ -42,9 +42,15 @@ var langs = []testCodeStruct{
 	{"SV", true, deeplgo.Swedish},
 	{"ZH", true, deeplgo.Chinese},
 	{"EO", false, deeplgo.EnglishBritish},
+	{"NB", true, NorwegianBokmal},
+	{"ID", true, Indonesian},
+	{"KO", true, Korean},
+	{"TR", true, Turkish},
+	{"UK", true, Ukrainian},
 }
 
 func TestCheckCode(t *testing.T) {
+	t.Parallel()
 
 	for _, lang := range langs {
 		if CheckCode(lang.langCode) != lang.expected {
@@ -56,6 +62,7 @@ func TestCheckCode(t *testing.T) {
 }
 
 func TestGetLang(t *testing.T) {
+	t.Parallel()
 
 	for _, lang := range langs {
 		if GetLang(lang.langCode) != lang.expectedLang {

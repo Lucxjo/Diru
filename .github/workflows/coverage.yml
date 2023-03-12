@@ -22,13 +22,8 @@ jobs:
 
     - name: Build
       run: go build -v ./...
-    - name: Setup tests
-      run: | 
-        mkdir ./config/
-        touch ./config/gcloud.json
-        echo $GOOGLE_APP_CRED >> ./config/gcloud.json
     - name: Test
-      run: go test ./... -race -covermode=atomic -coverprofile=coverage.txt
+      run: mkdir ./config/ && touch ./config/gcloud.json && echo $GOOGLE_APP_CRED >> ./config/gcloud.json && go test ./deepl -race -covermode=atomic -coverprofile=coverage.txt
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3.1.0
       with: 

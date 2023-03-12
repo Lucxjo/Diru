@@ -6,6 +6,14 @@ import (
 	"github.com/bounoable/deepl"
 )
 
+const (
+	NorwegianBokmal deepl.Language = "NB"
+	Indonesian      deepl.Language = "ID"
+	Korean          deepl.Language = "KO"
+	Turkish         deepl.Language = "TR"
+	Ukrainian       deepl.Language = "UK"
+)
+
 // GetLang returns the deepl language for a given language code.
 func GetLang(langCode string) deepl.Language {
 	trimmed := strings.TrimSpace(strings.ToUpper(langCode))
@@ -36,14 +44,20 @@ func GetLang(langCode string) deepl.Language {
 		return deepl.French
 	case "HU":
 		return deepl.Hungarian
+	case "ID":
+		return Indonesian
 	case "IT":
 		return deepl.Italian
 	case "JA":
 		return deepl.Japanese
+	case "KO":
+		return Korean
 	case "LT":
 		return deepl.Lithuanian
 	case "LV":
 		return deepl.Latvian
+	case "NB":
+		return NorwegianBokmal
 	case "NL":
 		return deepl.Dutch
 	case "PL":
@@ -64,6 +78,10 @@ func GetLang(langCode string) deepl.Language {
 		return deepl.Slovenian
 	case "SV":
 		return deepl.Swedish
+	case "TR":
+		return Turkish
+	case "UK":
+		return Ukrainian
 	case "ZH":
 		return deepl.Chinese
 	default:
@@ -131,6 +149,16 @@ func CheckCode(langCode string) bool {
 	case "SV":
 		return true
 	case "ZH":
+		return true
+	case "NB":
+		return true
+	case "ID":
+		return true
+	case "KO":
+		return true
+	case "TR":
+		return true
+	case "UK":
 		return true
 	default:
 		return false
