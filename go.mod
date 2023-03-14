@@ -3,10 +3,11 @@ module github.com/lucxjo/diru
 go 1.17
 
 require (
-	cloud.google.com/go/pubsub v1.28.0
+	cloud.google.com/go/pubsub v1.29.0
 	cloud.google.com/go/translate v1.6.0
 	github.com/andersfylling/disgord v0.36.1
 	github.com/bounoable/deepl v0.5.1
+	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/viper v1.15.0
 	go.mongodb.org/mongo-driver v1.11.2
 	golang.org/x/text v0.8.0
