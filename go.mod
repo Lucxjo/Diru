@@ -7,8 +7,9 @@ require (
 	cloud.google.com/go/translate v1.6.0
 	github.com/andersfylling/disgord v0.36.1
 	github.com/bounoable/deepl v0.5.1
+	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/viper v1.15.0
-	go.mongodb.org/mongo-driver v1.11.2
+	go.mongodb.org/mongo-driver v1.11.5
 	golang.org/x/text v0.8.0
 )
 
