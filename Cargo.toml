@@ -11,3 +11,8 @@ name = "diru"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+sea-orm = { version = "0.12.15", features = ["sqlx-sqlite", "macros", "runtime-tokio"] }
+thiserror = "1.0.61"
+tokio = { version = "1.37.0", features = ["full", "tracing"] }
+tracing = { version = "0.1.40", features = ["log", "async-await"] }
+tracing-subscriber = { version = "0.3.18", features = ["serde", "chrono", "tracing-serde", "env-filter"] }
