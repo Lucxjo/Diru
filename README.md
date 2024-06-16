@@ -1,3 +1,7 @@
+> [!CAUTION]
+> Diru 2.0 (now Diru Discord) is being worked on over on [Codeberg](https://codeberg.org/lucxjo/diru-discord). This is a complete rewrite in Rust and will have breaking changes. It is no longer backed by a Database for preferences since the restructure of the project no longer allows for this.
+> It is planned to be released on 2024-06-22 at 11:00h UTC. The main instance of the bot will be updated immediately.
+
 # Diru
 
 <div align="center">
